@@ -1,16 +1,13 @@
-# React + Vite
+# Todo List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the code for the first coding assignment for Code The Dream. The goal of this assigment is to setup and learn the basics of React and Vite. The application features a heading and a simple, unordered list of items that need to be done.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+In order to install the application, have Node updated.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Clone the repo
+- Navigate to the location where you cloned this repo
+- In the CLI or your preferred code editor, run "npm install" to install dependencies
+- Next, run "npm run dev" to start up a local server
+- Navigate to the respective localhost address that was generated in the CLI to see the application
