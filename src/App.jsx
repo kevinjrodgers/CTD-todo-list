@@ -10,7 +10,7 @@ function App() {
       <TodoForm />
       <TodoList />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

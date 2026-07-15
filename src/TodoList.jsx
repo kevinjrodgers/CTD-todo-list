@@ -1,16 +1,14 @@
 function TodoList() {
 
     const todoList = [
-        {id: 1, title: "Review resources"},
-        {id: 2, title: "Take notes"},
-        {id: 3, title: "Code out application"},
+        {id: 1, title: "review resources"},
+        {id: 2, title: "take notes"},
+        {id: 3, title: "code out app"},
     ];
 
     return (
         <ul>
-            {todoList.map((todo) => 
-            <li key={todo.id}>{todo.title}</li>
-            )}
+            {todoList.map(todo => <li key={todo.id}>{todo.title}</li>)}
         </ul>
     );
 }
