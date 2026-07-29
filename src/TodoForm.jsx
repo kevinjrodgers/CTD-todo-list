@@ -5,9 +5,6 @@ function TodoForm({ onAddTodo }) {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    console.log('Event object:', event);
-    console.log('Event target:', event.target);
-    console.log('Input value', event.target.todoTitle.value);
 
     const todoTitle = event.target.todoTitle.value.trim();
     if(todoTitle && todoTitle !== "") {
@@ -22,7 +19,7 @@ function TodoForm({ onAddTodo }) {
 	return (
 		<form onSubmit={handleAddTodo}>
 			<label htmlFor="todoTitle">Todo</label>
-			<input type="text" id="todoTitle" 
+			<input 
         ref={inputRef}
         type="text"
         id="todoTitle"
