@@ -17,14 +17,13 @@ function App() {
   }
 
   function completeTodo(id) {
-    let updatedTodoList = todoList.map((todo) => {
+    setTodoList(previous => previous.map((todo) => {
       if(todo.id === id) {
         return {...todo, isCompleted: true};
       } else {
         return todo;
       }
-    });
-    setTodoList(updatedTodoList);
+    }));
   }
 
 	return (
