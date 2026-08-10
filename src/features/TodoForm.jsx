@@ -13,8 +13,6 @@ function TodoForm({ onAddTodo }) {
     inputRef.current.focus();
   };
 
- // NEXT: Continue building edit functionality
-
 	return (
 		<form onSubmit={handleAddTodo}>
       <TextInputWithLabel 
