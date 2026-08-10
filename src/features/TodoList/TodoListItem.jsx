@@ -1,12 +1,19 @@
 import { useState } from "react";
 import TextInputWithLabel from "../../shared/TextInputWithLabel.jsx";
 import {isValidTodoTitle} from "../../utils/todoValidation.js";
+import { useEditableTitle } from "../../hooks/useEditableTitle.js";
 
 function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
-  const [isEditing, setIsEditing] = useState(false);
-  const [workingTitle, setWorkingTitle] = useState(todo.title);
+  const {
+    isEditing,
+    workingTitle,
+    startEditing,
+    cancelEdit,
+    updateTitle,
+    finishEdit
+  } = useEditableTitle(todo.title);
 
-  function handleCancel() {
+  /*function handleCancel() {
     setWorkingTitle(todo.title);
     setIsEditing(false);
   }
@@ -25,14 +32,24 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
     onUpdateTodo(newTodoObject);
     setIsEditing(false);
   }
+  */
 
 	return (
 		<li>
       {isEditing ? (
         <>
-          <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)}/>
-          <button type="button" onClick={handleCancel}>Cancel</button>
-          <button type="button" onClick={(event) => handleUpdate(event)} disabled={!isValidTodoTitle(workingTitle)}>Update</button>
+          <TextInputWithLabel value={workingTitle} onChange={(event) => updateTitle(event.target.value)}/>
+          <button type="button" onClick={cancelEdit}>Cancel</button>
+          <button 
+            type="button" 
+            onClick={(event) => {
+                if(!isEditing) return; 
+                event.preventDefault(); 
+                const finalTitle = finishEdit(); 
+                onUpdateTodo({...todo, title: finalTitle})
+              }
+            } 
+            disabled={!isValidTodoTitle(workingTitle)}>Update</button>
         </>
        ) : (
               <>
@@ -44,7 +61,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
                     onChange={() => onCompleteTodo(todo.id)}
                   />
                 </label> 
-                <span onClick={() => setIsEditing(true)}>{todo.title}</span>
+                <span onClick={() => startEditing()}>{todo.title}</span>
               </>
             )}
 			
