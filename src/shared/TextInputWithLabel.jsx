@@ -12,7 +12,6 @@ function TextInputWithLabel({
       <input 
         type="text"
         id={elementId}
-        name={elementId} // Not sure if needed
         ref={ref}
         value={value}
         onChange={onChange}
