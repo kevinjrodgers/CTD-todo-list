@@ -4,7 +4,7 @@ import { isValidTodoTitle } from '../utils/todoValidation.js';
 
 function TodoForm({ onAddTodo }) {
   const inputRef = useRef();
-  const [workingTodoTitle, setWorkingTodoTitle] = useState("");
+  const [workingTodoTitle, setWorkingTodoTitle] = useState('');
 
   const handleAddTodo = (event) => {
     event.preventDefault();
@@ -13,7 +13,7 @@ function TodoForm({ onAddTodo }) {
     inputRef.current.focus();
   };
 
- 
+ // NEXT: Continue building edit functionality
 
 	return (
 		<form onSubmit={handleAddTodo}>
