@@ -1,6 +1,6 @@
-import { useState } from "react";
-import TextInputWithLabel from "../../shared/TextInputWithLabel.jsx";
-import {isValidTodoTitle} from "../../utils/todoValidation.js";
+import { useState } from 'react';
+import TextInputWithLabel from '../../shared/TextInputWithLabel.jsx';
+import { isValidTodoTitle } from '../../utils/todoValidation.js';
 
 function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,14 +16,14 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
   }
 
   function handleUpdate(event) {
-    if(isEditing === false) {
-      return;
-    }
     event.preventDefault();
-    let newTodoObject = {...todo};
+    let newTodoObject = { ...todo };
     newTodoObject.title = workingTitle;
     onUpdateTodo(newTodoObject);
     setIsEditing(false);
+    if(isEditing === false) {
+      return;
+    }
   }
 
 	return (
