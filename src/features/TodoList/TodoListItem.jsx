@@ -28,9 +28,10 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
 
 	return (
 		<li>
-      {isEditing ? (
+      <form onSubmit={handleUpdate}>
+        {isEditing ? (
         <>
-          <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)}/>
+          <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)} elementId={`input${todo.id}`} labelText=""/>
           <button type="button" onClick={handleCancel}>Cancel</button>
           <button type="button" onClick={(event) => handleUpdate(event)} disabled={!isValidTodoTitle(workingTitle)}>Update</button>
         </>
@@ -47,7 +48,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
                 <span onClick={() => setIsEditing(true)}>{todo.title}</span>
               </>
             )}
-			
+      </form>
     </li>
 	);
 }
