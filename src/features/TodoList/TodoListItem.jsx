@@ -16,12 +16,12 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
   }
 
   function handleUpdate(event) {
-    setIsEditing(false);
-    event.preventDefault();
-    onUpdateTodo({ ...todo, title: workingTitle });
     if(isEditing === false) {
       return;
     }
+    event.preventDefault();
+    onUpdateTodo({ ...todo, title: workingTitle });
+    setIsEditing(false);
   }
 
 	return (
