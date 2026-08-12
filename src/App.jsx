@@ -29,7 +29,7 @@ function App() {
   function updateTodo(editedTodo) {
     let updatedTodos = todoList.map((todo) => {
       if(todo.id === editedTodo.id) {
-        return {...editedTodo};
+        return { ...editedTodo };
       } else {
         return todo;
       }
