@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
+function Logon({ onSetEmail , onSetToken }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState('');
@@ -39,7 +39,7 @@ function Logon({ onSetEmail = () => {}, onSetToken = () => {} }) {
       <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
       <label htmlFor="password">Password</label>
-      <input type="text" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
+      <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
       {isLoggingOn ? <button type="submit" disabled>Logging in...</button> : <button type="submit" onClick={handleSubmit}>Log On</button>}
     </form>
   );

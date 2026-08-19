@@ -6,11 +6,13 @@ import Logon from './features/Logon.jsx';
 
 function App() {
 
+  const [email, setEmail] = useState('');
+  const [token, setToken] = useState('');
+
 	return (
 		<div>
-      <Header/>
-      <TodosPage/>
-      <Logon/>
+      <Header token={token} onSetToken={setToken} onSetEmail={setEmail} />
+      {token ? <TodosPage token={token} /> : <Logon onSetEmail={setEmail} onSetToken={setToken} />}
 		</div>
 	);
 }
