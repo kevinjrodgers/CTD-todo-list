@@ -66,10 +66,11 @@ function TodosPage({ token }) {
       } else {
         //console.log(error.message);
         setTodoList(backupTodoList);
-        setError('Failed to upload todo');
+        setError('Invalid response: Failed to add Todo');
       }
     } catch(error) {
       console.log(error.message);
+      setError('Unexpted error: Failed to add Todo');
     }
   }
 
@@ -98,10 +99,9 @@ function TodosPage({ token }) {
         body: JSON.stringify({isCompleted: true}),
       });
       if(response.status >= 200 && response.status < 300) {
-        const data = await response.json(); // Unneeded?
-        //console.log(data);
+        console.log('Completed Todo success');
       } else {
-        setError('Failed to update Todo');
+        setError('Invalid response: Failed to complete selected Todo');
         setTodoList(previous => previous.map((todo) => {
           if(todo.id === id) {
             return {...originalTodo};
@@ -109,9 +109,9 @@ function TodosPage({ token }) {
             return todo;
           }
         }));
-        //console.log('failed to update todo');
       }
     } catch(error) {
+      setError('Unexpected error: Failed to complete selected Todo');
       console.log(error.message);
     } finally {
       console.log('completeTodo operation done');
@@ -145,7 +145,7 @@ function TodosPage({ token }) {
       if(response.status >= 200 && response.status < 300) {
         console.log("Update success!");
       } else {
-        console.log("Update failed...");
+        setError('Invalid response: Failed to Update selected Todo');
         setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
             return {...originalTodo};
@@ -156,6 +156,7 @@ function TodosPage({ token }) {
       }
     } catch (error) {
       console.log(error.message);
+      setError('Unexpected error: Failed to Update selected Todo');
     } finally {
       console.log('Update Todo operation completed');
     }
@@ -164,6 +165,13 @@ function TodosPage({ token }) {
 
   return (
     <>
+      {error ? 
+      <section>
+          <p>{error}</p> 
+          <button onClick={() => setError('')}>Clear Error</button>
+      </section> 
+      : null}
+      {isTodoListLoading ? <p>Loading...</p> : null}
 			<TodoForm onAddTodo={addTodo}/>
 			<TodoList todoList={todoList} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
     </>
