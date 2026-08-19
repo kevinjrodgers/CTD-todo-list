@@ -21,7 +21,7 @@ function TodosPage({ token }) {
           },
           credentials: 'include'
         });
-        console.log(response);
+        //console.log(response);
         if(response.status === 401) {
           setError('Unauthorized');
         } 
@@ -29,7 +29,7 @@ function TodosPage({ token }) {
           setError('Error');
         }
         const data = await response.json();
-        console.log(data);
+        setTodoList(data.tasks);
       } catch(error) {
         console.log(error.message);
         setError(error.message);
@@ -40,13 +40,37 @@ function TodosPage({ token }) {
     fetchTodos();
   }, [token]);
 
-  function addTodo(todoTitle) {
-    let newTodo = {
-      id: Date.now(),
-      title: todoTitle,
-	    isCompleted: false
-    };
-    setTodoList(previous => [newTodo, ...previous]);
+  async function addTodo(todoTitle) {
+    try {
+      let newTodo = {
+        id: Date.now(),
+        title: todoTitle,
+        isCompleted: false
+      };
+      let backupTodoList = [...todoList];
+      setTodoList(previous => [newTodo, ...previous]);
+      const response = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': token
+        },
+        credentials: 'include',
+        body: JSON.stringify({title: newTodo.title, isCompleted: newTodo.isCompleted}),
+      });
+      if(response.status === 201) {
+        console.log(`Response: ${response}`);
+        const data = await response.json();
+        setTodoList([data.tasks[0], ...todoList]);
+        console.log(`Data ${data}`);
+      } else {
+        console.log(error.message);
+        setTodoList(backupTodoList);
+        setError('Failed to upload todo');
+      }
+    } catch(error) {
+      console.log(error.message);
+    }
   }
 
   function completeTodo(id) {
