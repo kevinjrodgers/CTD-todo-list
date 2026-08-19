@@ -73,14 +73,49 @@ function TodosPage({ token }) {
     }
   }
 
-  function completeTodo(id) {
-    setTodoList(previous => previous.map((todo) => {
-      if(todo.id === id) {
-        return {...todo, isCompleted: true};
-      } else {
-        return todo;
+  async function completeTodo(id) {
+    try {
+      let originalTodo;
+      for(let x = 0; x < todoList.length; x++) {
+        if(id === todoList[x].id) {
+          originalTodo = todoList[x];
+        }
       }
-    }));
+      setTodoList(previous => previous.map((todo) => {
+        if(todo.id === id) {
+          return {...todo, isCompleted: true};
+        } else {
+          return todo;
+        }
+      }));
+
+      const response = await fetch(`/api/tasks/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({isCompleted: true}),
+      });
+      if(response.status >= 200 && response.status < 300) {
+        const data = await response.json();
+        console.log(data);
+      } else {
+        setError('Failed to update Todo');
+        setTodoList(previous => previous.map((todo) => {
+          if(todo.id === id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }));
+        console.log('failed to update todo');
+      }
+    } catch(error) {
+      console.log(error.message);
+    } finally {
+      console.log('completeTodo operation done');
+    }
   }
 
   function updateTodo(editedTodo) {
