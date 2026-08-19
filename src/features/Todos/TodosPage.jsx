@@ -59,12 +59,12 @@ function TodosPage({ token }) {
         body: JSON.stringify({title: newTodo.title, isCompleted: newTodo.isCompleted}),
       });
       if(response.status === 201) {
-        console.log(`Response: ${response}`);
+        //console.log(`Response: ${response}`);
         const data = await response.json();
         setTodoList([data.tasks[0], ...todoList]);
-        console.log(`Data ${data}`);
+        //console.log(`Data ${data}`);
       } else {
-        console.log(error.message);
+        //console.log(error.message);
         setTodoList(backupTodoList);
         setError('Failed to upload todo');
       }
@@ -98,8 +98,8 @@ function TodosPage({ token }) {
         body: JSON.stringify({isCompleted: true}),
       });
       if(response.status >= 200 && response.status < 300) {
-        const data = await response.json();
-        console.log(data);
+        const data = await response.json(); // Unneeded?
+        //console.log(data);
       } else {
         setError('Failed to update Todo');
         setTodoList(previous => previous.map((todo) => {
@@ -109,7 +109,7 @@ function TodosPage({ token }) {
             return todo;
           }
         }));
-        console.log('failed to update todo');
+        //console.log('failed to update todo');
       }
     } catch(error) {
       console.log(error.message);
@@ -118,15 +118,48 @@ function TodosPage({ token }) {
     }
   }
 
-  function updateTodo(editedTodo) {
-    let updatedTodos = todoList.map((todo) => {
-      if(todo.id === editedTodo.id) {
-        return { ...editedTodo };
-      } else {
-        return todo;
+  async function updateTodo(editedTodo) {
+    try {
+      let originalTodo;
+      for(let x = 0; x < todoList.length; x++) {
+        if(editedTodo.id === todoList[x].id) {
+          originalTodo = todoList[x];
+        }
       }
-    })
-    setTodoList(updatedTodos);
+      let updatedTodos = todoList.map((todo) => {
+        if(todo.id === editedTodo.id) {
+          return { ...editedTodo };
+        } else {
+          return todo;
+        }
+      });
+      setTodoList(updatedTodos);
+      const response = await fetch(`/api/tasks/${editedTodo.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({title: editedTodo.title, isCompleted: editedTodo.isCompleted})
+      });
+      if(response.status >= 200 && response.status < 300) {
+        console.log("Update success!");
+      } else {
+        console.log("Update failed...");
+        setTodoList(previous => previous.map((todo) => {
+          if(todo.id === editedTodo.id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }));
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      console.log('Update Todo operation completed');
+    }
+    
   }
 
   return (
