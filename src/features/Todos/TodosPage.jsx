@@ -21,7 +21,6 @@ function TodosPage({ token }) {
           },
           credentials: 'include'
         });
-        //console.log(response);
         if(response.status === 401) {
           setError('Unauthorized');
         } 
@@ -31,7 +30,6 @@ function TodosPage({ token }) {
         const data = await response.json();
         setTodoList(data.tasks);
       } catch(error) {
-        console.log(error.message);
         setError(error.message);
       } finally {
         setIsTodoListLoading(false);
@@ -59,17 +57,13 @@ function TodosPage({ token }) {
         body: JSON.stringify({title: newTodo.title, isCompleted: newTodo.isCompleted}),
       });
       if(response.status === 201) {
-        //console.log(`Response: ${response}`);
         const data = await response.json();
         setTodoList([data.tasks[0], ...todoList]);
-        //console.log(`Data ${data}`);
       } else {
-        //console.log(error.message);
         setTodoList(backupTodoList);
         setError('Invalid response: Failed to add Todo');
       }
     } catch(error) {
-      console.log(error.message);
       setError('Unexpted error: Failed to add Todo');
     }
   }
@@ -98,9 +92,7 @@ function TodosPage({ token }) {
         },
         body: JSON.stringify({isCompleted: true}),
       });
-      if(response.status >= 200 && response.status < 300) {
-        console.log('Completed Todo success');
-      } else {
+      if(response.status < 200 || response.status > 299) {
         setError('Invalid response: Failed to complete selected Todo');
         setTodoList(previous => previous.map((todo) => {
           if(todo.id === id) {
@@ -112,10 +104,7 @@ function TodosPage({ token }) {
       }
     } catch(error) {
       setError('Unexpected error: Failed to complete selected Todo');
-      console.log(error.message);
-    } finally {
-      console.log('completeTodo operation done');
-    }
+    } 
   }
 
   async function updateTodo(editedTodo) {

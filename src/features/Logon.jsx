@@ -17,17 +17,14 @@ function Logon({ onSetEmail , onSetToken }) {
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
-      //console.log(data);
       if(response.status === 200 && data.name && data.csrfToken) {
         onSetEmail(data.name);
         onSetToken(data.csrfToken);
       } else {
         setAuthError(`Authentification failed: ${data?.message}`);
-        //console.log(authError);
       }
     } catch (error) {
       setAuthError(`Error: ${error.name} | ${error.message}`);
-      //console.log(authError);
     } finally {
       setIsLoggingOn(false);
     }
@@ -35,6 +32,7 @@ function Logon({ onSetEmail , onSetToken }) {
 
   return (
     <form>
+      {authError ? <p>{authError}</p> : <></>}
       <label htmlFor="email">Email</label>
       <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
