@@ -7,10 +7,10 @@ function Logon({ onSetEmail , onSetToken }) {
   const [isLoggingOn, setIsLoggingOn] = useState(false); // Shows loading state during login
 
   async function handleSubmit(event) {
-    try {
-      event.preventDefault();
-      setAuthError('');
-      setIsLoggingOn(true);
+    event.preventDefault();
+    setAuthError('');
+    setIsLoggingOn(true);
+    try {  
       const response = await fetch('/api/users/logon', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,15 +32,21 @@ function Logon({ onSetEmail , onSetToken }) {
   }
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <>
       {authError ? <p>{authError}</p> : <></>}
+      <form onSubmit={(e) => handleSubmit(e)}>
+      
       <label htmlFor="email">Email</label>
       <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
       <label htmlFor="password">Password</label>
       <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
-      {isLoggingOn ? <button type="submit" disabled>Logging in...</button> : <button type="submit">Log On</button>}
+      <button type="submit" disabled={isLoggingOn}>
+        {isLoggingOn ? 'Logging in...' : 'Log on'}
+      </button>
     </form>
+    </>
+    
   );
 }
 
