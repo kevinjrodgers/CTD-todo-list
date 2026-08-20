@@ -101,6 +101,7 @@ function TodosPage({ token }) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': token
         },
+        credentials: 'include',
         body: JSON.stringify({isCompleted: true}),
       });
       if(response.status < 200 || response.status > 299) {
@@ -140,10 +141,10 @@ function TodosPage({ token }) {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': token
         },
+        credentials: 'include',
         body: JSON.stringify({title: editedTodo.title, isCompleted: editedTodo.isCompleted})
       });
       if(response.status >= 200 && response.status < 300) {
-        console.log("Update success!");
       } else {
         setError('Invalid response: Failed to Update selected Todo');
         setTodoList(previous => previous.map((todo) => {
@@ -155,7 +156,6 @@ function TodosPage({ token }) {
         }));
       }
     } catch (error) {
-      console.log(error.message);
       setError('Unexpected error: Failed to Update selected Todo');
     } finally {
       console.log('Update Todo operation completed');
