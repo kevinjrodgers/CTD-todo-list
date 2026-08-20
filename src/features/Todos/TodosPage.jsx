@@ -10,6 +10,7 @@ function TodosPage({ token }) {
 
   useEffect(() => {
     const fetchTodos = async() => {
+      setError('');
       setIsTodoListLoading(true);
       try {
         const params = new URLSearchParams({
@@ -26,7 +27,7 @@ function TodosPage({ token }) {
           setTodoList(data.tasks);
         }
         else if(response.status === 401) {
-          throw new Error('Unauthorized.');
+          throw new Error('Unauthorized access.');
         }
         else {
           throw new Error('Cannot fetch todos');
@@ -82,14 +83,15 @@ function TodosPage({ token }) {
 
   async function completeTodo(id) {
     let originalTodo;
-    setTodoList(previous => previous.map((todo) => {
-        if(todo.id === id) {
-          originalTodo = {...todo};
-          return {...todo, isCompleted: true};
-        } else {
-          return todo;
-        }
-    }));
+    const updatedTodoList = todoList.map((todo) => {
+      if(todo.id === id) {
+        originalTodo = {...todo};
+        return {...todo, isCompleted: true};
+      } else {
+        return todo;
+      }
+    })
+    setTodoList(updatedTodoList);
     try {
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PATCH',
@@ -117,14 +119,15 @@ function TodosPage({ token }) {
 
   async function updateTodo(editedTodo) {
     let originalTodo;
-    setTodoList(previous => previous.map((todo) => {
-        if(todo.id === editedTodo.id) {
-          originalTodo = {...todo};
-          return { ...editedTodo };
-        } else {
-          return todo;
-        }
-    }));
+    const updatedTodoList = todoList.map((todo) => {
+      if(todo.id === editedTodo.id) {
+        originalTodo = {...todo};
+        return {...editedTodo};
+      } else {
+        return todo;
+      }
+    })
+    setTodoList(updatedTodoList);
     try {
       const response = await fetch(`/api/tasks/${editedTodo.id}`, {
         method: 'PATCH',
