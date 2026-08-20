@@ -22,13 +22,14 @@ function TodosPage({ token }) {
           credentials: 'include'
         });
         if(response.status === 401) {
-          setError('Unauthorized');
-        } 
-        if(response.status !== 200) {
-          setError('Error');
+          throw new Error('Unauthorized.');
         }
-        const data = await response.json();
-        setTodoList(data.tasks);
+        else if(!response.ok) {
+          throw new Error('Cannot log in.');
+        } else {
+          const data = await response.json();
+          setTodoList(data.tasks);
+        }
       } catch(error) {
         setError(error.message);
       } finally {

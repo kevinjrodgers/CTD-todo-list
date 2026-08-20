@@ -21,7 +21,7 @@ function Logon({ onSetEmail , onSetToken }) {
         onSetEmail(data.name);
         onSetToken(data.csrfToken);
       } else {
-        setAuthError(`Authentification failed: ${data?.message}`);
+        setAuthError(`Authentication failed: ${data?.message}`);
       }
     } catch (error) {
       setAuthError(`Error: ${error.name} | ${error.message}`);
@@ -38,7 +38,7 @@ function Logon({ onSetEmail , onSetToken }) {
 
       <label htmlFor="password">Password</label>
       <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
-      {isLoggingOn ? <button type="submit" disabled>Logging in...</button> : <button type="submit" /*onClick={(e) => handleSubmit(e)}*/>Log On</button>}
+      {isLoggingOn ? <button type="submit" disabled>Logging in...</button> : <button type="submit">Log On</button>}
     </form>
   );
 }
