@@ -36,7 +36,11 @@ function TodosPage({ token }) {
         setIsTodoListLoading(false);
       }
     }
-    fetchTodos();
+    if(token) {
+      fetchTodos();
+    } else {
+      setError('Invalid token');
+    }
   }, [token]);
 
   async function addTodo(todoTitle) {
@@ -57,15 +61,21 @@ function TodosPage({ token }) {
         credentials: 'include',
         body: JSON.stringify({title: newTodo.title, isCompleted: newTodo.isCompleted}),
       });
-      if(response.status === 201) {
-        const data = await response.json();
-        setTodoList([data.tasks[0], ...todoList]);
-      } else {
+      if(!response.ok) {
         setTodoList(backupTodoList);
         setError('Invalid response: Failed to add Todo');
+      } else {
+        const data = await response.json();
+        setTodoList(previous => previous.map((todo) => {
+          if(todo.id === data.id) {
+            return {...data};
+          } else {
+            return todo;
+          }
+        }));
       }
     } catch(error) {
-      setError('Unexpted error: Failed to add Todo');
+      setError('Unexpected error: Failed to add Todo');
     }
   }
 
