@@ -21,26 +21,25 @@ function TodosPage({ token }) {
           },
           credentials: 'include'
         });
-        if(response.status === 401) {
-          throw new Error('Unauthorized.');
-        }
-        else if(!response.ok) {
-          throw new Error('Cannot log in.');
-        } else {
+        if(response.status === 200) {
           const data = await response.json();
           setTodoList(data.tasks);
         }
+        else if(response.status === 401) {
+          throw new Error('Unauthorized.');
+        }
+        else if(!response.ok) {
+          throw new Error('Cannot fetch todos');
+        } 
       } catch(error) {
-        setError(error.message);
+        setError(`Error: ${error.name} | ${error.message}`);
       } finally {
         setIsTodoListLoading(false);
       }
     }
     if(token) {
       fetchTodos();
-    } else {
-      setError('Invalid token');
-    }
+    } 
   }, [token]);
 
   async function addTodo(todoTitle) {
