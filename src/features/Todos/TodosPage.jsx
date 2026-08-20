@@ -116,21 +116,16 @@ function TodosPage({ token }) {
   }
 
   async function updateTodo(editedTodo) {
-    try {
-      let originalTodo;
-      for(let x = 0; x < todoList.length; x++) {
-        if(editedTodo.id === todoList[x].id) {
-          originalTodo = todoList[x];
-        }
-      }
-      let updatedTodos = todoList.map((todo) => {
+    let originalTodo;
+    setTodoList(previous => previous.map((todo) => {
         if(todo.id === editedTodo.id) {
+          originalTodo = {...todo};
           return { ...editedTodo };
         } else {
           return todo;
         }
-      });
-      setTodoList(updatedTodos);
+    }));
+    try {
       const response = await fetch(`/api/tasks/${editedTodo.id}`, {
         method: 'PATCH',
         headers: {
@@ -140,19 +135,18 @@ function TodosPage({ token }) {
         credentials: 'include',
         body: JSON.stringify({title: editedTodo.title, isCompleted: editedTodo.isCompleted})
       });
-      if(!response.ok) {
-        setError('Invalid response: Failed to Update selected Todo');
-        setTodoList(previous => previous.map((todo) => {
+      if(response.status !== 200) {
+        throw new Error('Failed to update selected Todo');
+      } 
+    } catch (error) {
+      setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
             return {...originalTodo};
           } else {
             return todo;
           }
         }));
-      } 
-    } catch (error) {
-      console.log(error.message);
-      setError('Unexpected error: Failed to Update selected Todo');
+      setError(error.message);
     } 
   }
 
