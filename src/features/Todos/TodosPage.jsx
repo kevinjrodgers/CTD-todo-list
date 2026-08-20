@@ -10,8 +10,8 @@ function TodosPage({ token }) {
 
   useEffect(() => {
     const fetchTodos = async() => {
+      setIsTodoListLoading(true);
       try {
-        setIsTodoListLoading(true);
         const params = new URLSearchParams({
           limit: 100,
         });
@@ -28,7 +28,7 @@ function TodosPage({ token }) {
         else if(response.status === 401) {
           throw new Error('Unauthorized.');
         }
-        else if(!response.ok) {
+        else {
           throw new Error('Cannot fetch todos');
         } 
       } catch(error) {
@@ -48,8 +48,8 @@ function TodosPage({ token }) {
         title: todoTitle,
         isCompleted: false
       };
+    setIsTodoListLoading(true);
     try {
-      setIsTodoListLoading(true);
       setTodoList(previous => [newTodo, ...previous]);
       const response = await fetch('/api/tasks', {
         method: 'POST',
@@ -110,7 +110,7 @@ function TodosPage({ token }) {
           } else {
             return todo;
           }
-        }));
+      }));
       setError(error.message);
     } 
   }

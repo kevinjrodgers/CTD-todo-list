@@ -42,7 +42,7 @@ function Logon({ onSetEmail , onSetToken }) {
       <label htmlFor="password">Password</label>
       <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
       <button type="submit" disabled={isLoggingOn}>
-        {isLoggingOn ? 'Logging in...' : 'Log on'}
+        {isLoggingOn ? 'Logging in...' : 'Log On'}
       </button>
     </form>
     </>
