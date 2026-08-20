@@ -144,8 +144,7 @@ function TodosPage({ token }) {
         credentials: 'include',
         body: JSON.stringify({title: editedTodo.title, isCompleted: editedTodo.isCompleted})
       });
-      if(response.status >= 200 && response.status < 300) {
-      } else {
+      if(!response.ok) {
         setError('Invalid response: Failed to Update selected Todo');
         setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
@@ -154,13 +153,11 @@ function TodosPage({ token }) {
             return todo;
           }
         }));
-      }
+      } 
     } catch (error) {
+      console.log(error.message);
       setError('Unexpected error: Failed to Update selected Todo');
-    } finally {
-      console.log('Update Todo operation completed');
-    }
-    
+    } 
   }
 
   return (
