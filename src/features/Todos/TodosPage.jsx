@@ -63,8 +63,8 @@ function TodosPage({ token }) {
       if(response.status === 201) {
         const data = await response.json();
         setTodoList(previous => previous.map((todo) => {
-          if(todo.id === data.id) {
-            return {...data};
+          if(todo.id === newTodo.id) {
+            return data;
           } else {
             return todo;
           }
@@ -89,7 +89,7 @@ function TodosPage({ token }) {
         } else {
           return todo;
         }
-      }));
+    }));
     try {
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PATCH',
