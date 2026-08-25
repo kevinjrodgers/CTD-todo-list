@@ -26,19 +26,13 @@ function TodosPage({ token }) {
         const paramsObject = {
           sortBy,
           sortDirection,
-          limit: 100, // Might not be needed
+          limit: 100,
         };
         if(debouncedFilterTerm) {
           paramsObject.find = debouncedFilterTerm;
         }
         const params = new URLSearchParams(paramsObject);
 
-        /*const params = new URLSearchParams({
-          sortBy,
-          sortDirection,
-          limit: 100,
-        });
-        */
         const response = await fetch(`/api/tasks?${params}`, {
           headers: {
             'X-CSRF-TOKEN': token,
@@ -191,7 +185,6 @@ function TodosPage({ token }) {
 
   const invalidateCache = useCallback(() => {
     setDataVersion(prev => prev + 1);
-    console.log('Invalidating memo cache after todo mutation');
   }, []);
 
   return (
