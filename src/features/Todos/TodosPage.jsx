@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
+import useDebounce from '../../utils/useDebounce.js';
+import FilterInput from '../../shared/FilterInput.jsx';
+
 
 function TodosPage({ token }) {
   
@@ -10,17 +13,30 @@ function TodosPage({ token }) {
   const [isTodoListLoading, setIsTodoListLoading] = useState(false);
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortDirection, setSortDirection] = useState('desc');
+  const [filterTerm, setFilterTerm] = useState('');
+  const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
   useEffect(() => {
     const fetchTodos = async() => {
       setError('');
       setIsTodoListLoading(true);
       try {
-        const params = new URLSearchParams({
+        const paramsObject = {
+          sortBy,
+          sortDirection,
+          limit: 100, // Might not be needed
+        };
+        if(debouncedFilterTerm) {
+          paramsObject.find = debouncedFilterTerm;
+        }
+        const params = new URLSearchParams(paramsObject);
+
+        /*const params = new URLSearchParams({
           sortBy,
           sortDirection,
           limit: 100,
         });
+        */
         const response = await fetch(`/api/tasks?${params}`, {
           headers: {
             'X-CSRF-TOKEN': token,
@@ -46,7 +62,7 @@ function TodosPage({ token }) {
     if(token) {
       fetchTodos();
     } 
-  }, [token, sortBy, sortDirection]);
+  }, [token, sortBy, sortDirection, debouncedFilterTerm]);
 
   async function addTodo(todoTitle) {
     let newTodo = {
@@ -158,6 +174,10 @@ function TodosPage({ token }) {
     } 
   }
 
+  function handleFilterChange(filterTerm) {
+    setFilterTerm(filterTerm);
+  }
+
   return (
     <>
       {error ? 
@@ -168,6 +188,7 @@ function TodosPage({ token }) {
       : null}
       {isTodoListLoading ? <p>Loading...</p> : null}
       <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
+      <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
 			<TodoList todoList={todoList} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
     </>
