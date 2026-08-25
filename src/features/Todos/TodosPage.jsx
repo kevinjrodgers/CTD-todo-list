@@ -54,7 +54,7 @@ function TodosPage({ token }) {
         if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
           setFilterError(`Error filtering/sorting todos: ${error.message}`);
         } else {
-          setError(`Error: ${error.name} | ${error.message}`);
+          setError(`Error fetching todos: ${error.message}`);
         }
       } finally {
         setIsTodoListLoading(false);
