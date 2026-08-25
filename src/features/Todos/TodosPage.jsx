@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
@@ -15,6 +15,7 @@ function TodosPage({ token }) {
   const [sortDirection, setSortDirection] = useState('desc');
   const [filterTerm, setFilterTerm] = useState('');
   const debouncedFilterTerm = useDebounce(filterTerm, 300);
+  const [dataVersion, setDataVersion] = useState(0);
 
   useEffect(() => {
     const fetchTodos = async() => {
@@ -91,6 +92,7 @@ function TodosPage({ token }) {
             return todo;
           }
         }));
+        invalidateCache();
       } else {
         throw new Error('Failed to add new todo');
       }
@@ -126,6 +128,7 @@ function TodosPage({ token }) {
       if(response.status !== 200) {
         throw new Error('Unexpected error: Failed to complete selected Todo');
       }
+      invalidateCache();
     } catch(error) {
       setTodoList(previous => previous.map((todo) => {
           if(todo.id === originalTodo.id) {
@@ -162,6 +165,7 @@ function TodosPage({ token }) {
       if(response.status !== 200) {
         throw new Error('Failed to update selected Todo');
       } 
+      invalidateCache();
     } catch (error) {
       setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
@@ -178,6 +182,11 @@ function TodosPage({ token }) {
     setFilterTerm(filterTerm);
   }
 
+  const invalidateCache = useCallback(() => {
+    setDataVersion(prev => prev + 1);
+    console.log('Invalidating memo cache after todo mutation');
+  }, []);
+
   return (
     <>
       {error ? 
@@ -190,7 +199,7 @@ function TodosPage({ token }) {
       <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
-			<TodoList todoList={todoList} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
     </>
   );
 }
