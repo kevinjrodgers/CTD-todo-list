@@ -16,6 +16,7 @@ function TodosPage({ token }) {
   const [filterTerm, setFilterTerm] = useState('');
   const debouncedFilterTerm = useDebounce(filterTerm, 300);
   const [dataVersion, setDataVersion] = useState(0);
+  const [filterError, setFilterError] = useState('');
 
   useEffect(() => {
     const fetchTodos = async() => {
@@ -47,6 +48,7 @@ function TodosPage({ token }) {
         if(response.status === 200) {
           const data = await response.json();
           setTodoList(data.tasks);
+          setFilterError('');
         }
         else if(response.status === 401) {
           throw new Error('Unauthorized access.');
@@ -55,7 +57,11 @@ function TodosPage({ token }) {
           throw new Error('Cannot fetch todos');
         } 
       } catch(error) {
-        setError(`Error: ${error.name} | ${error.message}`);
+        if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
+          setFilterError(`Error filtering/sorting todos: ${error.message}`);
+        } else {
+          setError(`Error: ${error.name} | ${error.message}`);
+        }
       } finally {
         setIsTodoListLoading(false);
       }
@@ -64,6 +70,7 @@ function TodosPage({ token }) {
       fetchTodos();
     } 
   }, [token, sortBy, sortDirection, debouncedFilterTerm]);
+
 
   async function addTodo(todoTitle) {
     let newTodo = {
@@ -200,6 +207,21 @@ function TodosPage({ token }) {
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
 			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+      {filterError ? 
+        <div>
+          <p>{filterError}</p>
+          <button onClick={() => setFilterError('')}>Clear Filter Error</button>
+          <button 
+            onClick={() => {
+              setFilterTerm('');
+              setSortBy('createdAt');
+              setSortDirection('desc');
+              setFilterError('');
+            }}
+          >Reset Filters
+          </button>
+        </div> 
+        : <></>}
     </>
   );
 }
