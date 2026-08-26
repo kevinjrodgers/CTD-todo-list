@@ -195,11 +195,6 @@ function TodosPage({ token }) {
           <button onClick={() => setError('')}>Clear Error</button>
       </section> 
       : null}
-      {isTodoListLoading ? <p>Loading...</p> : null}
-      <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
-      <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
-			<TodoForm onAddTodo={addTodo}/>
-			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
       {filterError ? 
         <div>
           <p>{filterError}</p>
@@ -216,6 +211,12 @@ function TodosPage({ token }) {
           </button>
         </div> 
         : <></>}
+      {isTodoListLoading ? <p>Loading...</p> : null}
+      <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
+      <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
+			<TodoForm onAddTodo={addTodo}/>
+			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+      
     </>
   );
 }
