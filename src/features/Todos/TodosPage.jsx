@@ -165,7 +165,7 @@ function TodosPage({ token }) {
       });
       if(response.status !== 200) {
         throw new Error('Failed to update selected Todo');
-      } 
+      }
       invalidateCache();
     } catch (error) {
       setTodoList(previous => previous.map((todo) => {
@@ -185,6 +185,7 @@ function TodosPage({ token }) {
 
   const invalidateCache = useCallback(() => {
     setDataVersion(prev => prev + 1);
+    console.log('Invalidating memo cache after todo mutation');
   }, []);
 
   return (
@@ -211,7 +212,8 @@ function TodosPage({ token }) {
               setSortDirection('desc');
               setFilterError('');
             }}
-          >Reset Filters
+          >
+           Reset Filters
           </button>
         </div> 
         : <></>}

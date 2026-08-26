@@ -5,6 +5,7 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo, dataVersion }) {
 
 	const filteredTodoList = useMemo(() => {
 		let filterOutCompletedTodos = todoList.filter((todo) => todo.isCompleted !== true);
+		console.log(`Recalculating filtered todos (v${dataVersion})`);
 		return {
 			version: dataVersion, 
 			todos: filterOutCompletedTodos,
