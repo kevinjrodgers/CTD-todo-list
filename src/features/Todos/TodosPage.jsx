@@ -198,8 +198,9 @@ function TodosPage({ token }) {
       {filterError ? 
         <div>
           <p>{filterError}</p>
-          <button onClick={() => setFilterError('')}>Clear Filter Error</button>
+          <button type='button' onClick={() => setFilterError('')}>Clear Filter Error</button>
           <button 
+            type='button'
             onClick={() => {
               setFilterTerm('');
               setSortBy('createdAt');
