@@ -184,6 +184,7 @@ function TodosPage({ token }) {
   }
 
   const invalidateCache = useCallback(() => {
+    console.log('Invaliding memo cache after todo mutation');
     setDataVersion(prev => prev + 1);
   }, []);
 
