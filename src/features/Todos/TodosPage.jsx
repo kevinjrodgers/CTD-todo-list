@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useReducer } from 'react';
 import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx';
-
+import { initialState, todoReducer, TODO_ACTIONS } from '../../reducers/todoReducer.js';
 
 function TodosPage({ token }) {
   
@@ -18,10 +18,15 @@ function TodosPage({ token }) {
   const [dataVersion, setDataVersion] = useState(0);
   const [filterError, setFilterError] = useState('');
 
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+
   useEffect(() => {
     const fetchTodos = async() => {
-      setError('');
-      setIsTodoListLoading(true);
+      //setError('');
+      //setIsTodoListLoading(true);
+      dispatch({
+        type: TODO_ACTIONS.FETCH_START 
+      });
       try {
         const paramsObject = {
           sortBy,
@@ -41,8 +46,13 @@ function TodosPage({ token }) {
         });
         if(response.status === 200) {
           const data = await response.json();
-          setTodoList(data.tasks);
-          setFilterError('');
+          // SUCCESS
+          //setTodoList(data.tasks);
+          //setFilterError('');
+          dispatch({
+            type: TODO_ACTIONS.FETCH_SUCCESS,
+            payload: data.tasks
+          });
         }
         else if(response.status === 401) {
           throw new Error('Unauthorized access.');
@@ -51,13 +61,21 @@ function TodosPage({ token }) {
           throw new Error('Cannot fetch todos');
         } 
       } catch(error) {
-        if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
+        /*if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
           setFilterError(`Error filtering/sorting todos: ${error.message}`);
         } else {
           setError(`Error fetching todos: ${error.message}`);
         }
+        */
+        dispatch({ 
+          type: TODO_ACTIONS.FETCH_ERROR, 
+          payload: { 
+            message: `Error fetching todos: ${error.message}`, 
+            debouncedFilterTerm 
+          } 
+        });
       } finally {
-        setIsTodoListLoading(false);
+        setIsTodoListLoading(false); // Make new dispatch?
       }
     }
     if(token) {
@@ -213,11 +231,11 @@ function TodosPage({ token }) {
           </button>
         </div> 
         : <></>}
-      {isTodoListLoading ? <p>Loading...</p> : null}
+      {state.isTodoListLoading ? <p>Loading...</p> : null}
       <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
-			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+			<TodoList todoList={state.todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
       
     </>
   );

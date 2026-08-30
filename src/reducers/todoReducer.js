@@ -27,7 +27,7 @@ export const initialState = {
   filterError: '',
   isTodoListLoading: false, // Instructions show this as an initial value of true?
   sortBy: 'createdAt',
-  sortDirection: 'desc', // Instructions show this as an initial value of asc
+  sortDirection: 'desc', // Instructions show this as an initial value of asc?
   filterTerm: '',
   dataVersion: 0,
 };
@@ -37,11 +37,31 @@ export function todoReducer(state, action) {
     // Add more cases here
     case TODO_ACTIONS.FETCH_START:
       return {
-        ...TODO_ACTIONS,
+        ...state,
         isTodoListLoading: true,
         error: '',
         filterError: '',
+      };
+    case TODO_ACTIONS.FETCH_SUCCESS:
+      return {
+        ...state,
+        todoList: action.payload,
+        filterError: '',
+      };
+    case TODO_ACTIONS.FETCH_ERROR: {
+      const { debouncedFilterTerm, message } = action.payload;
+      if(debouncedFilterTerm || state.sortBy !== 'createdAt' || state.sortDirection !== 'desc') {
+        return {
+          ...state,
+          filterError: message,
+        }
+      } else {
+        return {
+          ...state,
+          error: message,
+        }
       }
+    }
     default: 
       throw new Error(`Unknown action type: ${action.type}`);
   }
