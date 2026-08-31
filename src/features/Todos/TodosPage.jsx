@@ -90,9 +90,10 @@ function TodosPage({ token }) {
         title: todoTitle,
         isCompleted: false
       };
-    setIsTodoListLoading(true);
+    //setIsTodoListLoading(true);
+    //setTodoList(previous => [newTodo, ...previous]);
+    dispatch({ type: TODO_ACTIONS.ADD_TODO_START, payload: newTodo });
     try {
-      setTodoList(previous => [newTodo, ...previous]);
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
@@ -104,20 +105,27 @@ function TodosPage({ token }) {
       });
       if(response.status === 201) {
         const data = await response.json();
-        setTodoList(previous => previous.map((todo) => {
+        dispatch({ type: TODO_ACTIONS.ADD_TODO_SUCCESS, payload: newTodo, data: data });
+        /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === newTodo.id) {
             return data;
           } else {
             return todo;
           }
         }));
-        invalidateCache();
+        */
+        //invalidateCache();
       } else {
         throw new Error('Failed to add new todo');
       }
     } catch(error) {
-      setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
-      setError(error.message);
+      //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
+      //setError(error.message);
+      dispatch({
+        type: TODO_ACTIONS.ADD_TODO_ERROR,
+        message: error.message,
+        newTodo: newTodo
+      });
     } finally {
       setIsTodoListLoading(false);
     }
@@ -133,7 +141,11 @@ function TodosPage({ token }) {
         return todo;
       }
     })
-    setTodoList(updatedTodoList);
+    //setTodoList(updatedTodoList);
+    dispatch({
+      type: TODO_ACTIONS.COMPLETE_TODO_START,
+      payload: updatedTodoList
+    });
     try {
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PATCH',
@@ -147,9 +159,12 @@ function TodosPage({ token }) {
       if(response.status !== 200) {
         throw new Error('Unexpected error: Failed to complete selected Todo');
       }
-      invalidateCache();
+      //invalidateCache();
+      dispatch({ 
+        type: TODO_ACTIONS.COMPLETE_TODO_SUCCESS
+      });
     } catch(error) {
-      setTodoList(previous => previous.map((todo) => {
+      /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === originalTodo.id) {
             return {...originalTodo};
           } else {
@@ -157,6 +172,14 @@ function TodosPage({ token }) {
           }
       }));
       setError(error.message);
+    */
+      dispatch({ 
+        type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
+        payload: {
+          originalTodo,
+          message: error.message,
+        }
+      });
     } 
   }
 
@@ -170,7 +193,13 @@ function TodosPage({ token }) {
         return todo;
       }
     })
-    setTodoList(updatedTodoList);
+    //setTodoList(updatedTodoList);
+    dispatch({
+      type: TODO_ACTIONS.UPDATE_TODO_START,
+      payload: {
+        updatedTodoList,
+      }
+    });
     try {
       const response = await fetch(`/api/tasks/${editedTodo.id}`, {
         method: 'PATCH',
@@ -184,9 +213,20 @@ function TodosPage({ token }) {
       if(response.status !== 200) {
         throw new Error('Failed to update selected Todo');
       }
-      invalidateCache();
+      //invalidateCache();
+      dispatch({
+        type: TODO_ACTIONS.UPDATE_TODO_SUCCESS
+      });
     } catch (error) {
-      setTodoList(previous => previous.map((todo) => {
+      dispatch({
+        type: TODO_ACTIONS.UPDATE_TODO_ERROR,
+        payload: {
+          editedTodo,
+          originalTodo, 
+          message: error.message,
+        }
+      });
+      /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
             return {...originalTodo};
           } else {
@@ -194,6 +234,7 @@ function TodosPage({ token }) {
           }
         }));
       setError(error.message);
+      */
     } 
   }
 
@@ -233,9 +274,9 @@ function TodosPage({ token }) {
         : <></>}
       {state.isTodoListLoading ? <p>Loading...</p> : null}
       <SortBy sortBy={sortBy} sortDirection={sortDirection} onSortByChange={setSortBy} onSortDirectionChange={setSortDirection}/>
-      <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
+      <FilterInput filterTerm={state.filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
-			<TodoList todoList={state.todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+			<TodoList todoList={state.todoList} dataVersion={state.dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
       
     </>
   );

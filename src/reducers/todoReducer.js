@@ -62,6 +62,93 @@ export function todoReducer(state, action) {
         }
       }
     }
+    case TODO_ACTIONS.ADD_TODO_START: {
+      const { newTodo } = action.payload;
+      return {
+        ...state,
+        isTodoListLoading: true,
+        todoList: previous => [newTodo, ...previous],
+        //setTodoList(previous => [newTodo, ...previous]);
+      }
+    }
+    case TODO_ACTIONS.ADD_TODO_SUCCESS: {
+      const { newTodo, data } = action.payload;
+      return {
+        ...state,
+        todoList: previous => previous.map((todo) => {
+          if(todo.id === newTodo.id) {
+            return data;
+          } else {
+            return todo;
+          }
+        }),
+        dataVersion: previous => previous+1,
+      }
+    }
+    case TODO_ACTIONS.ADD_TODO_ERROR: {
+      const { message, newTodo } = action.payload;
+      return {
+        //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
+        //setError(error.message);
+        ...state,
+        todoList: previous => {previous.filter((todo) => todo.id !== newTodo.id)},
+        error: message, 
+      };
+    }
+    case TODO_ACTIONS.COMPLETE_TODO_START: {
+      const { updatedTodoList } = action.payload;
+      return {
+        ...state,
+        todoList: updatedTodoList,
+      };
+    }
+    case TODO_ACTIONS.COMPLETE_TODO_SUCCESS: {
+      return {
+        ...state,
+        dataVersion: previous => previous + 1
+      };
+    }
+    case TODO_ACTIONS.COMPLETE_TODO_ERROR: {
+      const { originalTodo, message } = action.payload;
+      return {
+        ...state,
+        todoList: previous => previous.map((todo) => {
+          if(todo.id === originalTodo.id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }),
+        error: message,
+      };
+    }
+    case TODO_ACTIONS.UPDATE_TODO_START: {
+      const { updatedTodoList } = action.payload;
+      return {
+        ...state,
+        todoList: updatedTodoList
+      };
+    }
+    case TODO_ACTIONS.UPDATE_TODO_SUCCESS:
+      return {
+        ...state,
+        dataVersion: previous => previous + 1
+      };
+    case TODO_ACTIONS.UPDATE_TODO_ERROR: {
+      const { editedTodo, originalTodo, message } = action.payload;
+      return {
+        ...state,
+        todoList: previous => previous.map((todo) => {
+          if(todo.id === editedTodo.id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }),
+        error: message,
+      //setError(error.message);
+      }
+    }
     default: 
       throw new Error(`Unknown action type: ${action.type}`);
   }
