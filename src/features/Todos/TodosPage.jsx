@@ -12,18 +12,8 @@ import {
 
 function TodosPage({ token }) {
   
-  //const [todoList, setTodoList] = useState([]);
-  //const [error, setError] = useState('');
-  //const [isTodoListLoading, setIsTodoListLoading] = useState(false);
-  //const [sortBy, setSortBy] = useState('createdAt');
-  //const [sortDirection, setSortDirection] = useState('desc');
-  //const [filterTerm, setFilterTerm] = useState('');
-  //const [dataVersion, setDataVersion] = useState(0);
-  //const [filterError, setFilterError] = useState('');
-  
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
 
-  
   const {
     todoList,
     error,
