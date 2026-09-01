@@ -18,6 +18,19 @@ export const TODO_ACTIONS = {
   UPDATE_TODO_START: 'UPDATE_TODO_START',
   UPDATE_TODO_SUCCESS: 'UPDATE_TODO_SUCCESS',
   UPDATE_TODO_ERROR: 'UPDATE_TODO_ERROR',
+
+  // Event handlers/setters
+  SET_SORT: 'SET_SORT',
+  SET_FILTER: 'SET_FILTER',
+  SET_FILTER_TERM: 'SET_FILTER_TERM',
+  SET_DATA_VERSION: 'SET_DATA_VERSION',
+
+  // Error clearing
+  CLEAR_ERROR: 'CLEAR_ERROR',
+  CLEAR_FILTER: 'CLEAR_FILTER',
+
+  // Reset
+  RESET_FILTER: 'RESET_FILTER',
 };
 
 export const initialTodoState = {
@@ -164,6 +177,51 @@ export function todoReducer(state, action) {
         }),
         error: message,
         isTodoListLoading: false,
+      };
+    }
+    // EVENT HANDLERS/SETTERS
+    case TODO_ACTIONS.SET_SORT: {
+      const { sortBy, sortDirection } = action.payload;
+      return {
+        ...state,
+        sortBy: sortBy,
+        sortDirection: sortDirection,
+      };
+    }
+    case TODO_ACTIONS.SET_FILTER_TERM: {
+      const { filterTerm } = action.payload;
+      return {
+        ...state,
+        filterTerm: filterTerm,
+      };
+    }
+    case TODO_ACTIONS.SET_DATA_VERSION: {
+      return {
+        ...state,
+        dataVersion: state.dataVersion + 1,
+      };
+    }
+    // CLEAR ERRORS
+    case TODO_ACTIONS.CLEAR_ERROR: {
+      return {
+        ...state,
+        error: '',
+      };
+    }
+    case TODO_ACTIONS.CLEAR_FILTER: {
+      return {
+        ...state,
+        filterError: '',
+      };
+    }
+    // RESET FILTERS
+    case TODO_ACTIONS.RESET_FILTER: {
+      return {
+        ...state,
+        filterTerm: '',
+        filterError: '',
+        sortBy: 'createdAt',
+        sortDirection: 'desc',
       };
     }
     default:
