@@ -32,9 +32,35 @@ export function todoReducer(state, action) {
         error: '',
         filterError: '',
       };
+    case TODO_ACTIONS.FETCH_SUCCESS: {
+      const { todos } = action.payload;
+      return {
+        ...state,
+        todoList: todos,
+        filterError: '',
+        isTodoListLoading: false,
+      };
+    }
+    case TODO_ACTIONS.FETCH_ERROR: {
+      const { debouncedFilterTerm, message } = action.payload;
+      if(debouncedFilterTerm || state.sortBy !== 'createdAt' || state.sortDirection !== 'desc') {
+          //setFilterError(`Error filtering/sorting todos: ${error.message}`);
+          return {
+            ...state,
+            filterError: `Error filtering/sorting todos: ${message}`,
+            isTodoListLoading: false,
+          };
+      } else {
+        //setError(`Error fetching todos: ${error.message}`);
+        return {
+          ...state,
+          error: `Error fetching todos: ${message}`,
+          isTodoListLoading: false,
+        };
+      }
+    }
     default:
       throw new Error(`Unknown action type: ${action.type}`);
   }
-
 };
 

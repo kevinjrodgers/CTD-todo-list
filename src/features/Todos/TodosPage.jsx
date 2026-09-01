@@ -12,35 +12,38 @@ import {
 
 function TodosPage({ token }) {
   
-  const [todoList, setTodoList] = useState([]);
-  const [error, setError] = useState('');
-  const [isTodoListLoading, setIsTodoListLoading] = useState(false);
+  //const [todoList, setTodoList] = useState([]);
+  //const [error, setError] = useState('');
+  //const [isTodoListLoading, setIsTodoListLoading] = useState(false);
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortDirection, setSortDirection] = useState('desc');
   const [filterTerm, setFilterTerm] = useState('');
   const [dataVersion, setDataVersion] = useState(0);
-  const [filterError, setFilterError] = useState('');
+  //const [filterError, setFilterError] = useState('');
   
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
 
-  /*
+  
   const {
     todoList,
     error,
-    //filterError,
+    filterError,
     isTodoListLoading,
     //sortBy,
     //sortDirection,
     //filterTerm,
     //dataVersion,
   } = state;
-  */
+  
   const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
   useEffect(() => {
     const fetchTodos = async() => {
-      setError('');
-      setIsTodoListLoading(true);
+      //setError('');
+      //setIsTodoListLoading(true);
+      dispatch({
+        type: TODO_ACTIONS.FETCH_START
+      });
       try {
         const paramsObject = {
           sortBy,
@@ -60,8 +63,12 @@ function TodosPage({ token }) {
         });
         if(response.status === 200) {
           const data = await response.json();
-          setTodoList(data.tasks);
-          setFilterError('');
+          //setTodoList(data.tasks);
+          //setFilterError('');
+          dispatch({
+            type: TODO_ACTIONS.FETCH_SUCCESS,
+            payload: { todos: data.tasks },
+          });
         }
         else if(response.status === 401) {
           throw new Error('Unauthorized access.');
@@ -70,13 +77,21 @@ function TodosPage({ token }) {
           throw new Error('Cannot fetch todos');
         } 
       } catch(error) {
-        if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
+        dispatch({
+          type: TODO_ACTIONS.FETCH_ERROR,
+          payload: {
+            debouncedFilterTerm: debouncedFilterTerm,
+            message: error.message
+          }
+        });
+        /*if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
           setFilterError(`Error filtering/sorting todos: ${error.message}`);
         } else {
           setError(`Error fetching todos: ${error.message}`);
         }
+        */
       } finally {
-        setIsTodoListLoading(false);
+        //setIsTodoListLoading(false);
       }
     }
     if(token) {
@@ -237,7 +252,6 @@ function TodosPage({ token }) {
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
 			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
-      
     </>
   );
 }
