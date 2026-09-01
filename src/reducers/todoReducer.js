@@ -25,6 +25,7 @@ export const initialTodoState = {
 export function todoReducer(state, action) {
   console.log('Dispatched action:', action.type, action.payload);
   switch (action.type) {
+    // FETCH
     case TODO_ACTIONS.FETCH_START:
       return {
         ...state,
@@ -58,6 +59,43 @@ export function todoReducer(state, action) {
           isTodoListLoading: false,
         };
       }
+    }
+    // ADD
+    case TODO_ACTIONS.ADD_TODO_START: {
+      const { newTodo } = action.payload;
+      return {
+        ...state,
+        isTodoListLoading: true,
+        todoList: [newTodo, ...state.todoList],
+      };
+        //setIsTodoListLoading(true);
+        //setTodoList(previous => [newTodo, ...previous]);
+    }
+    case TODO_ACTIONS.ADD_TODO_SUCCESS: {
+      const { newTodo, data } = action.payload;
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) => {
+          if(todo.id === newTodo.id) {
+            return data;
+          } else {
+            return todo;
+          }
+        }),
+        isTodoListLoading: false,
+      };
+    }
+    case TODO_ACTIONS.ADD_TODO_ERROR: {
+      const { newTodo, message } = action.payload;
+      return {
+        ...state,
+        todoList: state.todoList.filter((todo) => todo.id !== newTodo.id),
+        error: message,
+        isTodoListLoading: false,
+        //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
+        //setError(error.message);
+        //setIsTodoListLoading(false);
+      };
     }
     default:
       throw new Error(`Unknown action type: ${action.type}`);

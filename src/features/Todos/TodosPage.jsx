@@ -18,7 +18,7 @@ function TodosPage({ token }) {
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortDirection, setSortDirection] = useState('desc');
   const [filterTerm, setFilterTerm] = useState('');
-  const [dataVersion, setDataVersion] = useState(0);
+  //const [dataVersion, setDataVersion] = useState(0);
   //const [filterError, setFilterError] = useState('');
   
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
@@ -32,7 +32,7 @@ function TodosPage({ token }) {
     //sortBy,
     //sortDirection,
     //filterTerm,
-    //dataVersion,
+    dataVersion,
   } = state;
   
   const debouncedFilterTerm = useDebounce(filterTerm, 300);
@@ -106,9 +106,15 @@ function TodosPage({ token }) {
         title: todoTitle,
         isCompleted: false
       };
-    setIsTodoListLoading(true);
+    //setIsTodoListLoading(true);
+    dispatch({
+      type: TODO_ACTIONS.ADD_TODO_START,
+      payload: {
+        newTodo: newTodo,
+      }
+    });
     try {
-      setTodoList(previous => [newTodo, ...previous]);
+      //setTodoList(previous => [newTodo, ...previous]);
       const response = await fetch('/api/tasks', {
         method: 'POST',
         headers: {
@@ -120,22 +126,37 @@ function TodosPage({ token }) {
       });
       if(response.status === 201) {
         const data = await response.json();
-        setTodoList(previous => previous.map((todo) => {
+        /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === newTodo.id) {
             return data;
           } else {
             return todo;
           }
         }));
-        invalidateCache();
+        */
+       dispatch({
+        type: TODO_ACTIONS.ADD_TODO_SUCCESS,
+        payload: {
+          newTodo,
+          data,
+        }
+       });
+        //invalidateCache();
       } else {
         throw new Error('Failed to add new todo');
       }
     } catch(error) {
-      setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
-      setError(error.message);
+      dispatch({
+        type: TODO_ACTIONS.ADD_TODO_ERROR,
+        payload: {
+          newTodo,
+          message: error.message,
+        },
+      });
+      //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
+      //setError(error.message);
     } finally {
-      setIsTodoListLoading(false);
+      //setIsTodoListLoading(false);
     }
   }
 
