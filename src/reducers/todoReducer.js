@@ -1,0 +1,40 @@
+export const TODO_ACTIONS = {
+  // Fetch operations
+  FETCH_START: 'FETCH_START',
+  FETCH_SUCCESS: 'FETCH_SUCCESS',
+  FETCH_ERROR: 'FETCH_ERROR',
+  
+  // Add todo operations
+  ADD_TODO_START: 'ADD_TODO_START',
+  ADD_TODO_SUCCESS: 'ADD_TODO_SUCCESS',
+  ADD_TODO_ERROR: 'ADD_TODO_ERROR',
+  // ... continue for all operations
+};
+
+export const initialTodoState = {
+  todoList: [],
+  error: '',
+  filterError: '',
+  isTodoListLoading: false,
+  sortBy: 'createdAt',
+  sortDirection: 'desc',
+  filterTerm: '',
+  dataVersion: 0,
+};
+
+export function todoReducer(state, action) {
+  console.log('Dispatched action:', action.type, action.payload);
+  switch (action.type) {
+    case TODO_ACTIONS.FETCH_START:
+      return {
+        ...state,
+        isTodoListLoading: true,
+        error: '',
+        filterError: '',
+      };
+    default:
+      throw new Error(`Unknown action type: ${action.type}`);
+  }
+
+};
+

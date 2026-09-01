@@ -1,10 +1,14 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useReducer } from 'react';
 import TodoForm from './TodoForm.jsx';
 import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx';
-
+import { 
+  todoReducer,
+  initialTodoState,
+  TODO_ACTIONS,
+} from '../../reducers/todoReducer.js';
 
 function TodosPage({ token }) {
   
@@ -14,9 +18,24 @@ function TodosPage({ token }) {
   const [sortBy, setSortBy] = useState('createdAt');
   const [sortDirection, setSortDirection] = useState('desc');
   const [filterTerm, setFilterTerm] = useState('');
-  const debouncedFilterTerm = useDebounce(filterTerm, 300);
   const [dataVersion, setDataVersion] = useState(0);
   const [filterError, setFilterError] = useState('');
+  
+  const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+
+  /*
+  const {
+    todoList,
+    error,
+    //filterError,
+    isTodoListLoading,
+    //sortBy,
+    //sortDirection,
+    //filterTerm,
+    //dataVersion,
+  } = state;
+  */
+  const debouncedFilterTerm = useDebounce(filterTerm, 300);
 
   useEffect(() => {
     const fetchTodos = async() => {
