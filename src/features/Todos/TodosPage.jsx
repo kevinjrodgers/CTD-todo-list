@@ -170,7 +170,13 @@ function TodosPage({ token }) {
         return todo;
       }
     })
-    setTodoList(updatedTodoList);
+    dispatch({
+      type: TODO_ACTIONS.COMPLETE_TODO_START,
+      payload: {
+        updatedTodoList,
+      }
+    });
+    //setTodoList(updatedTodoList);
     try {
       const response = await fetch(`/api/tasks/${id}`, {
         method: 'PATCH',
@@ -186,7 +192,7 @@ function TodosPage({ token }) {
       }
       invalidateCache();
     } catch(error) {
-      setTodoList(previous => previous.map((todo) => {
+      /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === originalTodo.id) {
             return {...originalTodo};
           } else {
@@ -194,6 +200,14 @@ function TodosPage({ token }) {
           }
       }));
       setError(error.message);
+      */
+     dispatch({
+      type: TODO_ACTIONS.COMPLETE_TODO_ERROR,
+      payload: {
+        originalTodo,
+        message: error.message,
+      },
+     });
     } 
   }
 
@@ -240,7 +254,7 @@ function TodosPage({ token }) {
 
   const invalidateCache = useCallback(() => {
     console.log('Invalidating memo cache after todo mutation');
-    setDataVersion(prev => prev + 1);
+    //setDataVersion(prev => prev + 1);
   }, []);
 
   return (

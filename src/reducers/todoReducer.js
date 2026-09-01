@@ -8,7 +8,11 @@ export const TODO_ACTIONS = {
   ADD_TODO_START: 'ADD_TODO_START',
   ADD_TODO_SUCCESS: 'ADD_TODO_SUCCESS',
   ADD_TODO_ERROR: 'ADD_TODO_ERROR',
-  // ... continue for all operations
+  
+  // Complete todo operations
+  COMPLETE_TODO_START: 'COMPLETE_TODO_START',
+  COMPLETE_TODO_SUCCESS: 'COMPLETE_TODO_SUCCESS',
+  COMPLETE_TODO_ERROR: 'COMPLETE_TODO_ERROR',
 };
 
 export const initialTodoState = {
@@ -96,6 +100,33 @@ export function todoReducer(state, action) {
         //setError(error.message);
         //setIsTodoListLoading(false);
       };
+    }
+    // COMPLETE TODOS
+    case TODO_ACTIONS.COMPLETE_TODO_START: {
+      const { updatedTodoList } = action.payload;
+      return {
+        todoList: updatedTodoList,
+        isTodoListLoading: true,
+      };
+    }
+    case TODO_ACTIONS.COMPLETE_TODO_SUCCESS: {
+      return {
+        isTodoListLoading: false,
+      };
+    }
+    case TODO_ACTIONS.COMPLETE_TODO_ERROR: {
+      const { originalTodo, message } = action.payload;
+      return {
+        todoList: state.todoList.map((todo) => {
+          if(todo.id === originalTodo.id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }),
+        error: message,
+        isTodoListLoading: false,
+      }
     }
     default:
       throw new Error(`Unknown action type: ${action.type}`);
