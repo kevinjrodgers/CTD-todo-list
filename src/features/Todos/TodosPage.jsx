@@ -221,7 +221,14 @@ function TodosPage({ token }) {
         return todo;
       }
     })
-    setTodoList(updatedTodoList);
+    console.log(`Updatedtodolist: ${updatedTodoList}`);
+    //setTodoList(updatedTodoList);
+    dispatch({
+      type: TODO_ACTIONS.UPDATE_TODO_START,
+      payload: {
+        updatedTodoList,
+      }
+    });
     try {
       const response = await fetch(`/api/tasks/${editedTodo.id}`, {
         method: 'PATCH',
@@ -235,9 +242,12 @@ function TodosPage({ token }) {
       if(response.status !== 200) {
         throw new Error('Failed to update selected Todo');
       }
+      dispatch({
+        type: TODO_ACTIONS.UPDATE_TODO_SUCCESS,
+      });
       invalidateCache();
     } catch (error) {
-      setTodoList(previous => previous.map((todo) => {
+      /*setTodoList(previous => previous.map((todo) => {
           if(todo.id === editedTodo.id) {
             return {...originalTodo};
           } else {
@@ -245,6 +255,15 @@ function TodosPage({ token }) {
           }
         }));
       setError(error.message);
+      */
+      dispatch({
+        type: TODO_ACTIONS.UPDATE_TODO_ERROR,
+        payload: {
+          originalTodo,
+          editedTodo,
+          message: error.message,
+        }
+      });
     } 
   }
 

@@ -13,6 +13,11 @@ export const TODO_ACTIONS = {
   COMPLETE_TODO_START: 'COMPLETE_TODO_START',
   COMPLETE_TODO_SUCCESS: 'COMPLETE_TODO_SUCCESS',
   COMPLETE_TODO_ERROR: 'COMPLETE_TODO_ERROR',
+
+  // Update todo operations
+  UPDATE_TODO_START: 'UPDATE_TODO_START',
+  UPDATE_TODO_SUCCESS: 'UPDATE_TODO_SUCCESS',
+  UPDATE_TODO_ERROR: 'UPDATE_TODO_ERROR',
 };
 
 export const initialTodoState = {
@@ -105,18 +110,21 @@ export function todoReducer(state, action) {
     case TODO_ACTIONS.COMPLETE_TODO_START: {
       const { updatedTodoList } = action.payload;
       return {
+        ...state,
         todoList: updatedTodoList,
         isTodoListLoading: true,
       };
     }
     case TODO_ACTIONS.COMPLETE_TODO_SUCCESS: {
       return {
+        ...state,
         isTodoListLoading: false,
       };
     }
     case TODO_ACTIONS.COMPLETE_TODO_ERROR: {
       const { originalTodo, message } = action.payload;
       return {
+        ...state,
         todoList: state.todoList.map((todo) => {
           if(todo.id === originalTodo.id) {
             return {...originalTodo};
@@ -127,6 +135,36 @@ export function todoReducer(state, action) {
         error: message,
         isTodoListLoading: false,
       }
+    }
+    // UPDATE TODOS
+    case TODO_ACTIONS.UPDATE_TODO_START: {
+      const { updatedTodoList } = action.payload;
+      return {
+        ...state,
+        todoList: updatedTodoList,
+        isTodoListLoading: true,
+      };
+    }
+    case TODO_ACTIONS.UPDATE_TODO_SUCCESS: {
+      return {
+        ...state,
+        isTodoListLoading: false,
+      };
+    }
+    case TODO_ACTIONS.UPDATE_TODO_ERROR: {
+      const { originalTodo, editedTodo, message } = action.payload;
+      return {
+        ...state,
+        todoList: state.todoList.map((todo) => {
+          if(todo.id === editedTodo.id) {
+            return {...originalTodo};
+          } else {
+            return todo;
+          }
+        }),
+        error: message,
+        isTodoListLoading: false,
+      };
     }
     default:
       throw new Error(`Unknown action type: ${action.type}`);
