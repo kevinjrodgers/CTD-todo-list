@@ -62,9 +62,11 @@ export function AuthProvider({ children }) {
           }
         }
       } catch (error) {
+        setEmail('');
+        setToken('');
         return {
           success: false,
-          error: 'Network error durring logout',
+          error: 'Network error during logout',
         }
       }
     } else {

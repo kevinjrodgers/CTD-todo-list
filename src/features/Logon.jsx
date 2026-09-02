@@ -15,7 +15,7 @@ function Logon() {
     try {
       const result = await login(email, password);
       if(result.success) {
-        setIsLoggingOn(true);
+        setIsLoggingOn(false);
       } else {
         throw new Error(result.error);
       }

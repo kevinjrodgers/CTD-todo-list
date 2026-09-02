@@ -11,7 +11,7 @@ function App() {
 	return (
     <div>
       <Header />
-      {isAuthenticated ? <TodosPage /> : <Logon />}
+      { isAuthenticated ? <TodosPage /> : <Logon />}
     </div>
 	);
 }
