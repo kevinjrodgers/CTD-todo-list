@@ -71,8 +71,13 @@ export function AuthProvider({ children }) {
       // Just clear local state
       setEmail('');
       setToken('');
+      return {
+        success: false,
+        error: 'No token to clear',
+      }
     }
   }
+
 
   // Context value object
   const value = {

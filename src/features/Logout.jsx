@@ -4,8 +4,17 @@ function Logout() {
 
   async function handleLogout(event) {
     event.preventDefault();
-    await logout();
-  }
+    try {
+      const result = await logout();
+      if(result.success) {
+        console.log("Successfully logged out");
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }  
+  } 
 
   return (
     <button type='button' onClick={(e) => handleLogout(e)}>Log Out</button>

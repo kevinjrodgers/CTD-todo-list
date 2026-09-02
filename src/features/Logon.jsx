@@ -12,7 +12,18 @@ function Logon() {
     event.preventDefault();
     setAuthError('');
     setIsLoggingOn(true);
-    await login(email, password);
+    try {
+      const result = await login(email, password);
+      if(result.success) {
+        setIsLoggingOn(true);
+      } else {
+        throw new Error(result.error);
+      }
+    } catch (error) {
+      setIsLoggingOn(false);
+      setAuthError(error.message);
+    }
+    
   }
 
   return (
