@@ -4,15 +4,17 @@ import TodoList from './TodoList/TodoList.jsx';
 import SortBy from '../../shared/SortBy.jsx';
 import useDebounce from '../../utils/useDebounce.js';
 import FilterInput from '../../shared/FilterInput.jsx';
+import { useAuth } from '../../contexts/AuthContext.jsx';
 import { 
   todoReducer,
   initialTodoState,
   TODO_ACTIONS,
 } from '../../reducers/todoReducer.js';
 
-function TodosPage({ token }) {
+function TodosPage() {
   
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+  const { token } = useAuth();
 
   const {
     todoList,
@@ -121,8 +123,6 @@ function TodosPage({ token }) {
           message: error.message,
         },
       });
-      //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
-      //setError(error.message);
     } 
   }
 
@@ -217,7 +217,6 @@ function TodosPage({ token }) {
   }
 
   function handleFilterChange(filterTerm) {
-    //setFilterTerm(filterTerm);
     dispatch({
       type: TODO_ACTIONS.SET_FILTER_TERM,
       payload: {
@@ -228,7 +227,6 @@ function TodosPage({ token }) {
 
   const invalidateCache = useCallback(() => {
     console.log('Invalidating memo cache after todo mutation');
-    //setDataVersion(prev => prev + 1);
     dispatch({
       type: TODO_ACTIONS.SET_DATA_VERSION,
     });
