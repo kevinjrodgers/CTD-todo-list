@@ -255,7 +255,7 @@ function TodosPage() {
             type='button'
             onClick={ () =>
               dispatch({
-                type: TODO_ACTIONS.CLEAR_FILTER,
+                type: TODO_ACTIONS.CLEAR_FILTER_ERROR,
               })
             }  
           >

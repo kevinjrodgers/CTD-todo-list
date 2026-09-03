@@ -74,8 +74,7 @@ export function AuthProvider({ children }) {
       setEmail('');
       setToken('');
       return {
-        success: false,
-        error: 'No token to clear',
+        success: true,
       }
     }
   }
