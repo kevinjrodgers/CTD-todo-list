@@ -65,13 +65,24 @@ function TodosPage() {
           throw new Error('Cannot fetch todos');
         } 
       } catch(error) {
-        dispatch({
+        if(debouncedFilterTerm || sortBy !== 'createdAt' || sortDirection !== 'desc') {
+          dispatch({
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
-            debouncedFilterTerm: debouncedFilterTerm,
-            message: error.message
+            message: `Error with filter`,
+            isFilterError: true,
           }
         });
+        } else {
+          dispatch({
+          type: TODO_ACTIONS.FETCH_ERROR,
+          payload: {
+            message: error.message,
+            isFilterError: false,
+          }
+        });
+        }
+        
       }
     }
     if(token) {

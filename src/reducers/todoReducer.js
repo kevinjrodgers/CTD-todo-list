@@ -26,10 +26,10 @@ export const TODO_ACTIONS = {
 
   // Error clearing
   CLEAR_ERROR: 'CLEAR_ERROR',
-  CLEAR_FILTER: 'CLEAR_FILTER',
+  CLEAR_FILTER_ERROR: 'CLEAR_FILTER_ERROR',
 
   // Reset
-  RESET_FILTER: 'RESET_FILTERS',
+  RESET_FILTERS: 'RESET_FILTERS',
 };
 
 export const initialTodoState = {
@@ -64,16 +64,14 @@ export function todoReducer(state, action) {
       };
     }
     case TODO_ACTIONS.FETCH_ERROR: {
-      const { debouncedFilterTerm, message } = action.payload;
-      if(debouncedFilterTerm || state.sortBy !== 'createdAt' || state.sortDirection !== 'desc') {
-          //setFilterError(`Error filtering/sorting todos: ${error.message}`);
+      const { message, isFilterError } = action.payload;
+      if(isFilterError === true) {
           return {
             ...state,
             filterError: `Error filtering/sorting todos: ${message}`,
             isTodoListLoading: false,
           };
       } else {
-        //setError(`Error fetching todos: ${error.message}`);
         return {
           ...state,
           error: `Error fetching todos: ${message}`,
@@ -207,7 +205,7 @@ export function todoReducer(state, action) {
         error: '',
       };
     }
-    case TODO_ACTIONS.CLEAR_FILTER: {
+    case TODO_ACTIONS.CLEAR_FILTER_ERROR: {
       return {
         ...state,
         filterError: '',

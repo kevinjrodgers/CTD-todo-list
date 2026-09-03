@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
-function Logout() {
+function Logoff() {
   const { logout } = useAuth();
 
   async function handleLogout(event) {
@@ -21,4 +21,4 @@ function Logout() {
   );
 }
 
-export default Logout;
+export default Logoff;
