@@ -22,7 +22,6 @@ export const TODO_ACTIONS = {
   // Event handlers/setters
   SET_SORT: 'SET_SORT',
   SET_FILTER: 'SET_FILTER',
-  SET_FILTER_TERM: 'SET_FILTER_TERM',
   SET_DATA_VERSION: 'SET_DATA_VERSION',
 
   // Error clearing
@@ -188,7 +187,7 @@ export function todoReducer(state, action) {
         sortDirection: sortDirection,
       };
     }
-    case TODO_ACTIONS.SET_FILTER_TERM: {
+    case TODO_ACTIONS.SET_FILTER: {
       const { filterTerm } = action.payload;
       return {
         ...state,

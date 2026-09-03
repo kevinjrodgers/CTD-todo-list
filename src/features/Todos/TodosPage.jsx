@@ -218,7 +218,7 @@ function TodosPage() {
 
   function handleFilterChange(filterTerm) {
     dispatch({
-      type: TODO_ACTIONS.SET_FILTER_TERM,
+      type: TODO_ACTIONS.SET_FILTER,
       payload: {
         filterTerm,
       }
