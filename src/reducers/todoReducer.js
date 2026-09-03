@@ -29,7 +29,7 @@ export const TODO_ACTIONS = {
   CLEAR_FILTER: 'CLEAR_FILTER',
 
   // Reset
-  RESET_FILTER: 'RESET_FILTER',
+  RESET_FILTER: 'RESET_FILTERS',
 };
 
 export const initialTodoState = {
@@ -214,13 +214,13 @@ export function todoReducer(state, action) {
       };
     }
     // RESET FILTERS
-    case TODO_ACTIONS.RESET_FILTER: {
+    case TODO_ACTIONS.RESET_FILTERS: {
       return {
         ...state,
         filterTerm: '',
         filterError: '',
         sortBy: 'createdAt',
-        sortDirection: 'desc',
+        sortDirection: 'asc',
       };
     }
     default:

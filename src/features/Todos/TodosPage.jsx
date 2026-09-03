@@ -265,7 +265,7 @@ function TodosPage() {
             type='button'
             onClick={() => {
               dispatch({
-                type: TODO_ACTIONS.RESET_FILTER,
+                type: TODO_ACTIONS.RESET_FILTERS,
               });
             }}
           >
