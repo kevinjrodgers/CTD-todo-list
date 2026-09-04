@@ -8,7 +8,7 @@ function Logoff() {
     if(result.success) {
       console.log("Successfully logged out");
     } else {
-      console.log(result.message);
+      console.log(result.error);
     }
   } 
 

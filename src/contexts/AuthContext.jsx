@@ -51,11 +51,13 @@ export function AuthProvider({ children }) {
           }
         });
         const data = await response.json();
-        setEmail('');
-        setToken('');
         if(response.status === 200) {  
+          setEmail('');
+          setToken('');
           return { success: true };
         } else {
+          setEmail('');
+          setToken('');
           return {
             success: false,
             error: `Clear auth failed: ${data?.message}`,
@@ -74,7 +76,8 @@ export function AuthProvider({ children }) {
       setEmail('');
       setToken('');
       return {
-        success: true,
+        success: false,
+        error: 'No token found, clearing local states'
       }
     }
   }

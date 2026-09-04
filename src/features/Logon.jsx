@@ -16,7 +16,7 @@ function Logon() {
     if(result.success) {
       setIsLoggingOn(false);
     } else {
-      setAuthError(result.message);
+      setAuthError(result.error);
     }
     setIsLoggingOn(false);
   }
