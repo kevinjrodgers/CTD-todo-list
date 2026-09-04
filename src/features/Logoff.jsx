@@ -4,16 +4,12 @@ function Logoff() {
 
   async function handleLogout(event) {
     event.preventDefault();
-    try {
-      const result = await logout();
-      if(result.success) {
-        console.log("Successfully logged out");
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }  
+    const result = await logout();
+    if(result.success) {
+      console.log("Successfully logged out");
+    } else {
+      console.log(result.message);
+    }
   } 
 
   return (

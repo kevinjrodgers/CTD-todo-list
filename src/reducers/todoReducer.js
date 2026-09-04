@@ -68,7 +68,7 @@ export function todoReducer(state, action) {
       if(isFilterError === true) {
           return {
             ...state,
-            filterError: `Error filtering/sorting todos: ${message}`,
+            filterError: message,
             isTodoListLoading: false,
           };
       } else {

@@ -12,18 +12,13 @@ function Logon() {
     event.preventDefault();
     setAuthError('');
     setIsLoggingOn(true);
-    try {
-      const result = await login(email, password);
-      if(result.success) {
-        setIsLoggingOn(false);
-      } else {
-        throw new Error(result.error);
-      }
-    } catch (error) {
+    const result = await login(email, password);
+    if(result.success) {
       setIsLoggingOn(false);
-      setAuthError(error.message);
+    } else {
+      setAuthError(result.message);
     }
-    
+    setIsLoggingOn(false);
   }
 
   return (

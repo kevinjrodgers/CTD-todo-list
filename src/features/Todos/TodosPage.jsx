@@ -69,7 +69,7 @@ function TodosPage() {
           dispatch({
           type: TODO_ACTIONS.FETCH_ERROR,
           payload: {
-            message: `Error with filter`,
+            message: `Filtering/sorting error`,
             isFilterError: true,
           }
         });
@@ -191,7 +191,6 @@ function TodosPage() {
         return todo;
       }
     })
-    console.log(`Updatedtodolist: ${updatedTodoList}`);
     dispatch({
       type: TODO_ACTIONS.UPDATE_TODO_START,
       payload: {
