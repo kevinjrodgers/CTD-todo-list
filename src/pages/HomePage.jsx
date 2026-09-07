@@ -10,7 +10,7 @@ function HomePage() {
     if(isAuthenticated) {
       navigate('/todos', { replace: true });
     } else {
-      navigate('/logon', { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
