@@ -7,7 +7,9 @@ function ProfilePage() {
   return (
     <main>
       <h1>Hello, {email}. </h1>
-
+      <div>
+        <h3>Statistics</h3>
+      </div>
     </main>
   );
 }
