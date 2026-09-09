@@ -75,6 +75,10 @@ function ProfilePage() {
               <h5>Active Todos</h5>
               <p>{todoStats.active}</p>
             </div>
+            <div>
+              <h5>Todo Completion Percentage</h5>
+              <p>{Math.round((todoStats.completed / todoStats.total) * 100)}%</p>
+            </div>
         </div>
         )
       }
