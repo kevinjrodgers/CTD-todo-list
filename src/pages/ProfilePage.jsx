@@ -77,7 +77,7 @@ function ProfilePage() {
             </div>
             <div>
               <h5>Todo Completion Percentage</h5>
-              <p>{Math.round((todoStats.completed / todoStats.total) * 100)}%</p>
+              {todoStats.total === 0 ? <p>0%</p> : <p>{Math.round((todoStats.completed / todoStats.total) * 100)}%</p>}
             </div>
         </div>
         )
