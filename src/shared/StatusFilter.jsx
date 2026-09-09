@@ -4,7 +4,7 @@ Users can filter todos by all, active, or completed status
 The filter state is stored in the URL, making it bookmarkable and shareable
 */
 
-import { useSearchParams } from "react-router";
+import { useSearchParams } from 'react-router';
 
 function StatusFilter() {
   const [searchParams, setSearchParams] = useSearchParams();

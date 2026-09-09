@@ -1,6 +1,6 @@
 // This component provides navigation links throughout the app
-import { NavLink } from "react-router";
-import { useAuth } from "../contexts/AuthContext.jsx";
+import { NavLink } from 'react-router';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 function Navigation() {
 

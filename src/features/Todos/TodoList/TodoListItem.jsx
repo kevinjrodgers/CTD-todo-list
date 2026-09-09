@@ -30,14 +30,14 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo}) {
         {isEditing ? (
         <>
           <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)} elementId={`input${todo.id}`} labelText={''}/>
-          <button type="button" onClick={handleCancel}>Cancel</button>
-          <button type="button" onClick={handleUpdate} disabled={!isValidTodoTitle(workingTitle)}>Update</button>
+          <button type='button' onClick={handleCancel}>Cancel</button>
+          <button type='button' onClick={handleUpdate} disabled={!isValidTodoTitle(workingTitle)}>Update</button>
         </>
        ) : (
               <>
                 <label>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     id={`checkbox${todo.id}`}
                     checked={todo.isCompleted}
                     onChange={() => onCompleteTodo(todo.id)}

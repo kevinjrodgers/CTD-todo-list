@@ -10,7 +10,7 @@ function TextInputWithLabel({
     <>
       <label htmlFor={elementId}>{labelText}</label>
       <input 
-        type="text"
+        type='text'
         id={elementId}
         ref={ref}
         value={value}

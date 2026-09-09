@@ -1,7 +1,7 @@
 // This component is a wrapper component that protects routes that require authentication
-import { useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
-import { useAuth } from "../contexts/AuthContext.jsx";
+import { useLocation, useNavigate } from 'react-router';
+import { useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 function RequireAuth( { children }) {
   const { isAuthenticated } = useAuth();

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 function Logon() {
   const [email, setEmail] = useState('');
@@ -26,12 +26,12 @@ function Logon() {
       {authError ? <p>{authError}</p> : <></>}
       <form onSubmit={(e) => handleSubmit(e)}>
       
-      <label htmlFor="email">Email</label>
-      <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+      <label htmlFor='email'>Email</label>
+      <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
-      <label htmlFor="password">Password</label>
-      <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)}required/>
-      <button type="submit" disabled={isLoggingOn}>
+      <label htmlFor='password'>Password</label>
+      <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)}required/>
+      <button type='submit' disabled={isLoggingOn}>
         {isLoggingOn ? 'Logging in...' : 'Log On'}
       </button>
     </form>
