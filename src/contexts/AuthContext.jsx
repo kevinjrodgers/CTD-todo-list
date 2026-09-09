@@ -76,10 +76,6 @@ export function AuthProvider({ children }) {
       // Just clear local state
       setEmail('');
       setToken('');
-      return {
-        success: false,
-        error: 'No token found, clearing local states'
-      }
     }
   }
 
