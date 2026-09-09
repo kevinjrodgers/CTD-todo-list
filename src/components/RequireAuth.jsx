@@ -16,7 +16,7 @@ function RequireAuth( { children }) {
         }
       }); 
     }
-  }, []);
+  },);
 
   return (
     <>
