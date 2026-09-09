@@ -9,12 +9,8 @@ import TodosPage from './pages/TodosPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import RequireAuth from './components/RequireAuth.jsx';
 
-
-// import { useAuth } from './contexts/AuthContext.jsx';
-
 function App() {
 
-  //const { isAuthenticated } = useAuth();
 
 	return (
     <>

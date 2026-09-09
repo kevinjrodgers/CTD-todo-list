@@ -30,7 +30,6 @@ function ProfilePage() {
         const paramsObject  = {
           limit: 100,
         }
-
         const params = new URLSearchParams(paramsObject);
         const response = await fetch(`/api/tasks?${params}`, options);
         if(response.status === 401) {
@@ -40,7 +39,8 @@ function ProfilePage() {
           throw new Error('Failed to fetch todos');
         }
         const data = await response.json();
-        // Calculate statistics
+        console.log(response);
+        console.log(data);
         const total = data.tasks.length;
         const completed = data.tasks.filter((todo) => todo.isCompleted).length;
         const active = total - completed;
@@ -54,7 +54,6 @@ function ProfilePage() {
     fetchTodoStats();
   }, [token]);
 
-  // PUT IN API statistics
   return (
     <main>
       <h1>Hello, {email}. </h1>
@@ -62,6 +61,7 @@ function ProfilePage() {
       {isLoading ? <p>Loading profile and statistics...</p> : 
         (
           <div>
+            <h3>Account Status: Active</h3>
             <h3>Statistics</h3>
             <div>
               <h5>Total Todos</h5>

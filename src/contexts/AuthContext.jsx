@@ -48,6 +48,7 @@ export function AuthProvider({ children }) {
           headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': token,
+            'credentials' : 'include',
           }
         });
         const data = await response.json();
