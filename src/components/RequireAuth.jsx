@@ -10,17 +10,20 @@ function RequireAuth( { children }) {
   
   useEffect(() => {
     if(!isAuthenticated) {
-      navigate('/login', { 
-        state: {
-          from: location,
-        },
-      }); 
-    }
+      const timer = setTimeout(() => {
+        navigate('/login', { 
+          state: {
+            from: location,
+          }
+        })
+      }, 2000);
+      return () => clearTimeout(timer);
+      }
   }, [isAuthenticated, navigate, location]);
 
   return (
     <>
-      { isAuthenticated ? children : <p>Page requires log in, redirecting...</p>}
+      { isAuthenticated ? children : <p>Path {location.pathname} requires log in, redirecting...</p>}
     </>
     
   );
