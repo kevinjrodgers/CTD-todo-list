@@ -10,9 +10,9 @@ function Logoff() {
   const [error, setError] = useState('');
 
   async function handleLogoff(event) {
+    event.preventDefault();
     setIsLoggingOff(true);
     setError('');
-    event.preventDefault();
     const result = await logout();
     if(result.success) {
       navigate('/login');

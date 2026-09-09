@@ -15,6 +15,7 @@ function Navigation() {
     } else {
       return {
         textDecoration: 'none',
+        fontWeight: 'normal',
       }
     }
   };

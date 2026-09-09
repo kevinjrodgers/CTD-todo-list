@@ -11,7 +11,6 @@ import RequireAuth from './components/RequireAuth.jsx';
 
 function App() {
 
-
 	return (
     <>
       <Header />
@@ -22,9 +21,9 @@ function App() {
         <Route 
           path='/todos'
           element={
-          <RequireAuth>
-            <TodosPage />
-          </RequireAuth>
+            <RequireAuth>
+              <TodosPage />
+            </RequireAuth>
           } 
         />
         <Route 
