@@ -14,7 +14,9 @@ function Logoff() {
     setIsLoggingOff(true);
     setError('');
     const result = await logout();
+    console.log(result);
     if(result.success) {
+      
       navigate('/login');
     } else {
       setError(result.error);

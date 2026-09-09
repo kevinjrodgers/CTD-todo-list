@@ -51,7 +51,6 @@ export function AuthProvider({ children }) {
           },
           credentials : 'include',
         });
-        const data = await response.json();
         if(response.status === 200) {  
           setEmail('');
           setToken('');
@@ -59,10 +58,6 @@ export function AuthProvider({ children }) {
         } else {
           setEmail('');
           setToken('');
-          return {
-            success: false,
-            error: `Clear auth failed: ${data?.message}`,
-          }
         }
       } catch (error) {
         setEmail('');
