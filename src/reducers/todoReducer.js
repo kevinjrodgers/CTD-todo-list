@@ -86,8 +86,6 @@ export function todoReducer(state, action) {
         isTodoListLoading: true,
         todoList: [newTodo, ...state.todoList],
       };
-        //setIsTodoListLoading(true);
-        //setTodoList(previous => [newTodo, ...previous]);
     }
     case TODO_ACTIONS.ADD_TODO_SUCCESS: {
       const { newTodo, data } = action.payload;
@@ -110,9 +108,6 @@ export function todoReducer(state, action) {
         todoList: state.todoList.filter((todo) => todo.id !== newTodo.id),
         error: message,
         isTodoListLoading: false,
-        //setTodoList(previous => previous.filter((todo) => todo.id !== newTodo.id));
-        //setError(error.message);
-        //setIsTodoListLoading(false);
       };
     }
     // COMPLETE TODOS

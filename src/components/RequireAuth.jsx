@@ -7,7 +7,7 @@ function RequireAuth( { children }) {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     if(!isAuthenticated) {
       navigate('/login', { 
@@ -16,7 +16,7 @@ function RequireAuth( { children }) {
         }
       }); 
     }
-  });
+  }, []);
 
   return (
     <>
