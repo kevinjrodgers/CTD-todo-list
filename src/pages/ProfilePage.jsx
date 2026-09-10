@@ -10,7 +10,6 @@ function ProfilePage() {
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     async function fetchTodoStats() {
       if(!token) return;
@@ -32,6 +31,7 @@ function ProfilePage() {
         }
         const params = new URLSearchParams(paramsObject);
         const response = await fetch(`/api/tasks?${params}`, options);
+        console.log(response);
         if(response.status === 401) {
           throw new Error('Unauthorized');
         }
@@ -39,6 +39,7 @@ function ProfilePage() {
           throw new Error('Failed to fetch todos');
         }
         const todos = await response.json();
+        console.log(todos);
         const total = todos.tasks.length;
         const completed = todos.tasks.filter((todo) => todo.isCompleted).length;
         const active = total - completed;

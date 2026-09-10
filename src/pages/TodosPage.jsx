@@ -145,10 +145,12 @@ function TodosPage() {
 
   async function completeTodo(id) {
     let originalTodo;
+    let newIsCompleted;
     const updatedTodoList = todoList.map((todo) => {
       if(todo.id === id) {
         originalTodo = {...todo};
-        return {...todo, isCompleted: true};
+        newIsCompleted = !todo.isCompleted;
+        return {...todo, isCompleted: newIsCompleted};
       } else {
         return todo;
       }
