@@ -19,12 +19,13 @@ function RequireAuth( { children }) {
     } 
   }, [isAuthenticated, navigate, location]);
 
-  return (
-    <>
-      { isAuthenticated ? children : <p>Path {location.pathname} requires log in, redirecting...</p>}
-    </>
-    
-  );
+  if(!isAuthenticated) {
+    return (
+      <p>Redirecting to log in...</p>
+    );
+  }
+  
+  return children;
 }
 
 export default RequireAuth;
