@@ -13,7 +13,8 @@ function RequireAuth( { children }) {
       navigate('/login', { 
         state: {
           from: location,
-        }
+        }, 
+        replace: true,
       });
     } 
   }, [isAuthenticated, navigate, location]);
