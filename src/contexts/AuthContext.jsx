@@ -48,9 +48,9 @@ export function AuthProvider({ children }) {
           headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': token,
-          }
+          },
+          credentials : 'include',
         });
-        const data = await response.json();
         if(response.status === 200) {  
           setEmail('');
           setToken('');
@@ -58,10 +58,6 @@ export function AuthProvider({ children }) {
         } else {
           setEmail('');
           setToken('');
-          return {
-            success: false,
-            error: `Clear auth failed: ${data?.message}`,
-          }
         }
       } catch (error) {
         setEmail('');
@@ -75,10 +71,6 @@ export function AuthProvider({ children }) {
       // Just clear local state
       setEmail('');
       setToken('');
-      return {
-        success: false,
-        error: 'No token found, clearing local states'
-      }
     }
   }
 
@@ -102,7 +94,6 @@ export function AuthProvider({ children }) {
 //Custom hook with error checking
 export function useAuth() {
   const context = useContext(AuthContext);
-  //console.log('Auth context:', context); // Remove this later
   if(!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }

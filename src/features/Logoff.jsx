@@ -1,19 +1,34 @@
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
+
+
 function Logoff() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
+  const [isLoggingOff, setIsLoggingOff] = useState(false);
+  const [error, setError] = useState('');
 
-  async function handleLogout(event) {
+  async function handleLogoff(event) {
     event.preventDefault();
+    setIsLoggingOff(true);
+    setError('');
     const result = await logout();
     if(result.success) {
-      console.log("Successfully logged out");
+      navigate('/login');
     } else {
-      console.log(result.error);
+      setError(result.error);
+      setIsLoggingOff(false);
     }
   } 
 
   return (
-    <button type='button' onClick={(e) => handleLogout(e)}>Log Out</button>
+    <>
+      {isLoggingOff ? <p>Logging off...</p> : <></>}
+      {error ? <p>{error}</p> : <></>}
+      <button type='button' onClick={(e) => handleLogoff(e)}>Log Out</button>
+    </>
+    
   );
 }
 

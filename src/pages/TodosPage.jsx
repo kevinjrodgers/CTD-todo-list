@@ -1,20 +1,26 @@
 import { useEffect, useCallback, useReducer } from 'react';
-import TodoForm from './TodoForm.jsx';
-import TodoList from './TodoList/TodoList.jsx';
-import SortBy from '../../shared/SortBy.jsx';
-import useDebounce from '../../utils/useDebounce.js';
-import FilterInput from '../../shared/FilterInput.jsx';
-import { useAuth } from '../../contexts/AuthContext.jsx';
+import { useSearchParams } from 'react-router';
+import TodoForm from '../features/Todos/TodoForm.jsx';
+import TodoList from '../features/Todos/TodoList/TodoList.jsx';
+import SortBy from '../shared/SortBy.jsx';
+import useDebounce from '../utils/useDebounce.js';
+import FilterInput from '../shared/FilterInput.jsx';
+import { useAuth } from '../contexts/AuthContext.jsx';
+import StatusFilter from '../shared/StatusFilter.jsx';
 import { 
   todoReducer,
   initialTodoState,
   TODO_ACTIONS,
-} from '../../reducers/todoReducer.js';
+} from '../reducers/todoReducer.js';
 
 function TodosPage() {
   
-  const [state, dispatch] = useReducer(todoReducer, initialTodoState);
   const { token } = useAuth();
+  const [searchParams] = useSearchParams();
+  const [state, dispatch] = useReducer(todoReducer, initialTodoState);
+  
+  // Get status filter from URL, default to 'all'
+  const statusFilter = searchParams.get('status') || 'all';
 
   const {
     todoList,
@@ -139,10 +145,12 @@ function TodosPage() {
 
   async function completeTodo(id) {
     let originalTodo;
+    let newIsCompleted;
     const updatedTodoList = todoList.map((todo) => {
       if(todo.id === id) {
         originalTodo = {...todo};
-        return {...todo, isCompleted: true};
+        newIsCompleted = !todo.isCompleted;
+        return {...todo, isCompleted: newIsCompleted};
       } else {
         return todo;
       }
@@ -236,7 +244,6 @@ function TodosPage() {
   }
 
   const invalidateCache = useCallback(() => {
-    console.log('Invalidating memo cache after todo mutation');
     dispatch({
       type: TODO_ACTIONS.SET_DATA_VERSION,
     });
@@ -306,9 +313,16 @@ function TodosPage() {
           })
         }
       />
+      <StatusFilter />
       <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
 			<TodoForm onAddTodo={addTodo}/>
-			<TodoList todoList={todoList} dataVersion={dataVersion} onCompleteTodo={completeTodo} onUpdateTodo={updateTodo}/>
+			<TodoList 
+        todoList={todoList}
+        dataVersion={dataVersion}
+        onCompleteTodo={completeTodo}
+        onUpdateTodo={updateTodo}
+        statusFilter={statusFilter}
+      />
     </>
   );
 }

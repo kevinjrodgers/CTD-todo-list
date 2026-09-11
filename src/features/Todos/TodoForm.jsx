@@ -9,7 +9,7 @@ function TodoForm({ onAddTodo }) {
   const handleAddTodo = (event) => {
     event.preventDefault();
     onAddTodo(workingTodoTitle);
-    setWorkingTodoTitle("");
+    setWorkingTodoTitle('');
     inputRef.current.focus();
   };
 
@@ -19,10 +19,10 @@ function TodoForm({ onAddTodo }) {
         ref={inputRef} 
         value={workingTodoTitle} 
         onChange={(e) => setWorkingTodoTitle(e.target.value)}
-        elementId="todoTitle"
-        labelText="Todo"
+        elementId='todoTitle'
+        labelText='Todo'
       />
-			<button type="submit" disabled={!isValidTodoTitle(workingTodoTitle)}>
+			<button type='submit' disabled={!isValidTodoTitle(workingTodoTitle)}>
         Add Todo
       </button>
 		</form>
