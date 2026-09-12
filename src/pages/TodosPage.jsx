@@ -234,6 +234,43 @@ function TodosPage() {
     } 
   }
 
+  async function deleteTodo(id) {
+    let originalTodoList = [...todoList];
+    dispatch({
+      type: TODO_ACTIONS.DELETE_TODO_START,
+      payload: {
+        id,
+      }
+    })
+    try {
+      // Assume it will successfully delete (optimistic)
+      const response = await fetch(`/api/tasks/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        credentials: 'include', 
+      });
+      if(response.status !== 200) {
+        throw new Error(`Unable to delete selected todo`);
+      }
+      invalidateCache();
+      dispatch({
+        type: TODO_ACTIONS.DELETE_TODO_SUCCESS,
+      })
+    } catch(error) {
+      dispatch({
+        type: TODO_ACTIONS.DELETE_TODO_ERROR,
+        payload: {
+          originalTodoList, 
+          message: error.message,
+        }
+      })
+    }
+
+  }
+
   function handleFilterChange(filterTerm) {
     dispatch({
       type: TODO_ACTIONS.SET_FILTER,
@@ -321,6 +358,7 @@ function TodosPage() {
         dataVersion={dataVersion}
         onCompleteTodo={completeTodo}
         onUpdateTodo={updateTodo}
+        onDeleteTodo={deleteTodo}
         statusFilter={statusFilter}
       />
     </>

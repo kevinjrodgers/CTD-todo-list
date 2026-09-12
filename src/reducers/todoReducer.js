@@ -19,6 +19,11 @@ export const TODO_ACTIONS = {
   UPDATE_TODO_SUCCESS: 'UPDATE_TODO_SUCCESS',
   UPDATE_TODO_ERROR: 'UPDATE_TODO_ERROR',
 
+  // Delete todo operations
+  DELETE_TODO_START: 'DELETE_TODO_START',
+  DELETE_TODO_SUCCESS: 'DELETE_TODO_SUCCESS',
+  DELETE_TODO_ERROR: 'DELETE_TODO_ERROR',
+
   // Event handlers/setters
   SET_SORT: 'SET_SORT',
   SET_FILTER: 'SET_FILTER',
@@ -168,6 +173,30 @@ export function todoReducer(state, action) {
         }),
         error: message,
         isTodoListLoading: false,
+      };
+    }
+    // DELETE TODOS
+    case TODO_ACTIONS.DELETE_TODO_START: {
+      const { id } = action.payload;
+      return {
+        ...state,
+        todoList: state.todoList.filter((todo) => todo.id !== id),
+        isTodoListLoading: true,
+      };
+    }
+    case TODO_ACTIONS.DELETE_TODO_SUCCESS: {
+      return {
+        ...state,
+        isTodoListLoading: false,
+      };
+    }
+    case TODO_ACTIONS.DELETE_TODO_ERROR: {
+      const { originalTodoList, message } = action.payload;
+      return {
+        ...state,
+        todoList: [...originalTodoList],
+        isTodoListLoading: false,
+        error: message,
       };
     }
     // EVENT HANDLERS/SETTERS
