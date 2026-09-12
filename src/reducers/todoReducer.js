@@ -83,7 +83,7 @@ export function todoReducer(state, action) {
         };
       }
     }
-    // ADD
+    // ADD TODOS
     case TODO_ACTIONS.ADD_TODO_START: {
       const { newTodo } = action.payload;
       return {

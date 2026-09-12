@@ -99,6 +99,7 @@ function TodosPage() {
 
   async function addTodo(todoTitle) {
     let newTodo = {
+        // eslint-disable-next-line react-hooks/purity
         id: Date.now(),
         title: todoTitle,
         isCompleted: false
@@ -169,7 +170,7 @@ function TodosPage() {
             'X-CSRF-TOKEN': token
         },
         credentials: 'include',
-        body: JSON.stringify({isCompleted: true}),
+        body: JSON.stringify({isCompleted: newIsCompleted}),
       });
       if(response.status !== 200) {
         throw new Error('Unexpected error: Failed to complete selected Todo');
