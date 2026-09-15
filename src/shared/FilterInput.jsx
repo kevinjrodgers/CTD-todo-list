@@ -1,3 +1,5 @@
+import { MAX_TODO_LENGTH } from "../constants/config";
+
 function FilterInput({ filterTerm, onFilterChange }) {
   return (
     <div>
@@ -8,6 +10,7 @@ function FilterInput({ filterTerm, onFilterChange }) {
         value={filterTerm}
         onChange={(e) => onFilterChange(e.target.value)}
         placeholder='Search by title...'
+        maxLength={MAX_TODO_LENGTH}
       />
     </div>
   );
