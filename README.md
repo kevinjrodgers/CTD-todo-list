@@ -54,6 +54,7 @@ I wanted to make something simple, responsive, and intuitive.
 ## Assets Used
 <a href="https://www.flaticon.com/free-icons/hamburger" title="hamburger icons">Hamburger icons created by Lizel Arina - Flaticon</a>
 <a href="https://www.flaticon.com/free-icons/close" title="close icons">Close icons created by Pixel perfect - Flaticon</a>
+Background: https://coolbackgrounds.io/
 
 ## License Information (TODO)
 
