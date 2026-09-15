@@ -14,49 +14,42 @@ header nav {
   padding-right: 10px;
 }
 
-.hamburgerMenuButton {
-  background-image: url('../../src/assets/hamburger.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background-position: center;
-}
-
-.hamburgerMenuButtonClicked {
-  background-image: url('../assets/close.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  width: 24px;
-  height: 24px;
-  border: none;
-  background-position: center;
-}
-
-.slideInMenu {
-  display: hidden;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: pink;
-  padding: 40px;
-  transform: translateX(100%);
-  transition: transform 0.2s ease-in-out;
-  z-index: 10;
-  opacity: 0;
-}
-
-.slideInMenuActive {
-  transform: translateX(0);
-  position: absolute;
+.headerDiv {
   display: flex;
   flex-direction: column;
-  background-color: pink;
-  opacity: 1;
+  justify-content: center;
+  align-items: center;
 }
 
-@media screen and (min-width: 480px) {
-  
+.headerDiv nav {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.headerDiv ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style-type: none;
+  width: 100%;
+}
+
+.navLinks {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navLinks button {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 730px) {
+  .headerDiv nav {
+    max-width: 720px;
+  }
 }
 
