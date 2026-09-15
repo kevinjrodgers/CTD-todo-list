@@ -7,6 +7,8 @@ import useDebounce from '../utils/useDebounce.js';
 import FilterInput from '../shared/FilterInput.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import StatusFilter from '../shared/StatusFilter.jsx';
+import '../styles/TodosPage.module.css';
+
 import { 
   todoReducer,
   initialTodoState,

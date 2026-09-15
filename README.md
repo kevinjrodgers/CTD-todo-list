@@ -51,6 +51,10 @@ I wanted to make something simple, responsive, and intuitive.
 - Reorder todos
 - Light and dark themes
 
+## Assets Used
+<a href="https://www.flaticon.com/free-icons/hamburger" title="hamburger icons">Hamburger icons created by Lizel Arina - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/close" title="close icons">Close icons created by Pixel perfect - Flaticon</a>
+
 ## License Information (TODO)
 
 The MIT License (MIT)
