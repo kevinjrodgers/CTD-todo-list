@@ -1,0 +1,48 @@
+.aboutMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.aboutMain h1 {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.aboutFeatureDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.aboutFeature {
+  background-color: #f0f0f0;
+  padding: 30px 20px;
+  max-width: 400px;
+}
+
+.aboutFeature h3 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.aboutList {
+  list-style-type: disc;
+}
+
+@media screen and (min-width: 480px) {
+  .aboutFeature {
+    border-radius: 5px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutFeatureDiv {
+    flex-direction: row;
+  }
+
+  .aboutFeature {
+    min-width: 300px;
+    height: 200px;
+  }
+}
