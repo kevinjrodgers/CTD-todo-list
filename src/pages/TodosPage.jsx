@@ -7,7 +7,7 @@ import useDebounce from '../utils/useDebounce.js';
 import FilterInput from '../shared/FilterInput.jsx';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import StatusFilter from '../shared/StatusFilter.jsx';
-import '../styles/TodosPage.module.css';
+import styles from '../styles/TodosPage.module.css';
 
 import { 
   todoReducer,
@@ -290,9 +290,9 @@ function TodosPage() {
   }, []);
 
   return (
-    <>
+    <main className={styles.todosPageMain}>
       {error ? 
-      <section>
+      <section className={styles.errorSection}>
           <p>{error}</p> 
           <button 
             onClick={() =>
@@ -306,7 +306,7 @@ function TodosPage() {
       </section> 
       : null}
       {filterError ? 
-        <div>
+        <section className={styles.filterErrorSection}>
           <p>{filterError}</p>
           <button 
             type='button'
@@ -328,43 +328,48 @@ function TodosPage() {
           >
            Reset Filters
           </button>
-        </div> 
+        </section> 
         : <></>}
       {isTodoListLoading ? <p>Loading...</p> : null}
-      <SortBy 
-        sortBy={sortBy}
-        sortDirection={sortDirection}
-        onSortByChange={(newSortBy) => 
-          dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {
-              sortBy: newSortBy,
-              sortDirection,
-            }
-          })
-        }
-        onSortDirectionChange={(newSortDirection) => 
-          dispatch({
-            type: TODO_ACTIONS.SET_SORT,
-            payload: {
-              sortBy,
-              sortDirection: newSortDirection,
-            }
-          })
-        }
-      />
-      <StatusFilter />
-      <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
-			<TodoForm onAddTodo={addTodo}/>
-			<TodoList 
-        todoList={todoList}
-        dataVersion={dataVersion}
-        onCompleteTodo={completeTodo}
-        onUpdateTodo={updateTodo}
-        onDeleteTodo={deleteTodo}
-        statusFilter={statusFilter}
-      />
-    </>
+      <section className={styles.sortByAndStatusFilterSection}>
+        <SortBy 
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+          onSortByChange={(newSortBy) => 
+            dispatch({
+              type: TODO_ACTIONS.SET_SORT,
+              payload: {
+                sortBy: newSortBy,
+                sortDirection,
+              }
+            })
+          }
+          onSortDirectionChange={(newSortDirection) => 
+            dispatch({
+              type: TODO_ACTIONS.SET_SORT,
+              payload: {
+                sortBy,
+                sortDirection: newSortDirection,
+              }
+            })
+          }
+        />
+        <StatusFilter />
+      </section>
+      <section className={styles.todosFormAndListSection}>
+        <FilterInput filterTerm={filterTerm} onFilterChange={handleFilterChange}></FilterInput>
+        <TodoForm onAddTodo={addTodo}/>
+        <TodoList 
+          todoList={todoList}
+          dataVersion={dataVersion}
+          onCompleteTodo={completeTodo}
+          onUpdateTodo={updateTodo}
+          onDeleteTodo={deleteTodo}
+          statusFilter={statusFilter}
+        />
+      </section>
+			
+    </main>
   );
 }
 

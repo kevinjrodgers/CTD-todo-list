@@ -3,7 +3,7 @@ import { MAX_TODO_LENGTH } from "../constants/config";
 function FilterInput({ filterTerm, onFilterChange }) {
   return (
     <div>
-      <label htmlFor='filterInput'>Search todos:</label>
+      <label htmlFor='filterInput'>Search Todos:</label>
       <input 
         id='filterInput'
         type='text'
