@@ -1,5 +1,6 @@
 # Todo List
 
+## Description
 A simple, online todo tracking application that allows users to add, update, and delete todo, as well as mark them as completed. A profile section shows user's stats such as how many todos there are, how many are completed, how many are incomplete, and the percentage of todos completed.
 
 ## Features
@@ -29,14 +30,18 @@ A simple, online todo tracking application that allows users to add, update, and
 <img width="1312" height="863" alt="image" src="https://github.com/user-attachments/assets/6caad6b9-6d56-460e-8f4a-57bd38d6bb28" />
 
 
-## Installation
-In order to install the application, have Node updated.
+## Getting Started
+In order to install the application, have Node installed and updated.
 
-- Clone the repo
-- Navigate to the location where you cloned this repo
-- In the CLI or your preferred code editor, run "npm install" to install dependencies
-- Next, run "npm run dev" to start up a local server
-- Navigate to the respective localhost address that was generated in the CLI to see the application
+1. Install Git
+2. Go to repo webpage
+3. Copy repo link
+4. Open CMD or terminal
+5. Clone the repo using git clone
+6. Navigate to the location where you cloned this repo
+7. In the CLI or your preferred code editor, run "npm install" to install dependencies
+8. Next, run "npm run dev" to start up a local server
+9. Navigate to the respective localhost address that was generated in the CLI to see the application
 
 ## Available Scripts (TODO with descriptions)
 - npm run dev
@@ -44,10 +49,11 @@ Run the application in dev/StrictMode
 - npm run build
 Creates a production ready build of the application
 - npm build preview
-Creates a preview of the build
+Creates a preview of the production build
+- 
 
 ## Design Decisions (TODO)
-I wanted to make something simple, responsive, and intuitive. 
+I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization.
 
 ## Future Improvements (TODO)
 - Persistent login
