@@ -23,6 +23,11 @@ A simple, online todo tracking application that allows users to add, update, and
 - Git/GitHub
 
 ## Screenshots (TODO)
+<img width="1403" height="851" alt="image" src="https://github.com/user-attachments/assets/885e4cee-7a94-46b0-9a02-25c4561f0353" />
+<img width="1425" height="629" alt="image" src="https://github.com/user-attachments/assets/c284c94a-df3c-4a9d-b13c-dbe28040c3a0" />
+<img width="1134" height="737" alt="image" src="https://github.com/user-attachments/assets/d95f64b6-1414-4aae-b641-2832dc5cde79" />
+<img width="1312" height="863" alt="image" src="https://github.com/user-attachments/assets/6caad6b9-6d56-460e-8f4a-57bd38d6bb28" />
+
 
 ## Installation
 In order to install the application, have Node updated.
