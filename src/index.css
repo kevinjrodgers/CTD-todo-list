@@ -11,6 +11,7 @@ body {
   background-image: url('../src/assets/coolbackgrounds-io-fractalize.png');
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 100vh;
 }
 
 button {

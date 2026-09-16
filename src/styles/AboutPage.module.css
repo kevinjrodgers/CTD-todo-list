@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 110px);
+  padding-bottom: 50px;
 }
 
 .aboutMain h1 {
@@ -36,11 +36,18 @@
   .aboutFeature {
     border-radius: 5px;
   }
+  .aboutMain {
+    padding-bottom: 50px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
   .aboutFeatureDiv {
     flex-direction: row;
+  }
+
+  .aboutMain {
+    height: calc(100vh - 110px);
   }
 
   .aboutFeature {
