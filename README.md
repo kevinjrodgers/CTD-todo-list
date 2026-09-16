@@ -58,7 +58,7 @@ In order to install the application, have Node installed and updated.
 Run the application in dev/StrictMode
 - npm run build
 Creates a production ready build of the application
-- npm build preview
+- npm run preview
 Creates a preview of the production build
   
 
