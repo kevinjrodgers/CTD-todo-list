@@ -23,18 +23,19 @@ A simple, online todo tracking application that allows users to add, update, and
 - ESLint
 - Git/GitHub
 
-## Screenshots (TODO)
-Desktop:
-<img width="1403" height="851" alt="image" src="https://github.com/user-attachments/assets/885e4cee-7a94-46b0-9a02-25c4561f0353" />
-<img width="1425" height="629" alt="image" src="https://github.com/user-attachments/assets/c284c94a-df3c-4a9d-b13c-dbe28040c3a0" />
-<img width="1134" height="737" alt="image" src="https://github.com/user-attachments/assets/d95f64b6-1414-4aae-b641-2832dc5cde79" />
-<img width="1312" height="863" alt="image" src="https://github.com/user-attachments/assets/6caad6b9-6d56-460e-8f4a-57bd38d6bb28" />
+## Screenshots
+### Desktop:
+<img width="1920" height="957" alt="image" src="https://github.com/user-attachments/assets/88363795-6476-4404-b70c-b4f8fb99db88" />
+<img width="1920" height="967" alt="image" src="https://github.com/user-attachments/assets/157e3ea2-acd4-4d01-8b60-1af4ace960c3" />
+<img width="1920" height="946" alt="image" src="https://github.com/user-attachments/assets/c09c578e-0ffb-45ad-8caf-c9e3380b54c5" />
+<img width="1920" height="1007" alt="image" src="https://github.com/user-attachments/assets/12e5cd6a-05b0-4a72-be25-5e2988a95ad7" />
 
-Mobile:
-<img width="351" height="745" alt="image" src="https://github.com/user-attachments/assets/2d7373e7-0d9a-4cfe-9086-9f1c8e195b5f" />
-<img width="355" height="764" alt="image" src="https://github.com/user-attachments/assets/ab2f19ea-bcb1-443f-80ba-7c8fb4de67c1" />
-<img width="351" height="769" alt="image" src="https://github.com/user-attachments/assets/b517ae5d-48b8-4970-8994-65d1c12b9ce4" />
-<img width="355" height="703" alt="image" src="https://github.com/user-attachments/assets/f9bd19c0-4b2e-46a0-b07c-e6d0ae6994ad" />
+### Mobile:
+<img width="365" height="826" alt="image" src="https://github.com/user-attachments/assets/926ba728-f36c-4168-8750-71059f83f1ab" />
+<img width="365" height="855" alt="image" src="https://github.com/user-attachments/assets/25653154-71ff-40f5-af1d-7fc744abf4e6" />
+<img width="365" height="966" alt="image" src="https://github.com/user-attachments/assets/25c58f3a-ebd5-4cca-b855-973abcd0a404" />
+<img width="365" height="876" alt="image" src="https://github.com/user-attachments/assets/3244fcd4-4d21-478c-97e4-9b6fa168a060" />
+
 
 
 
