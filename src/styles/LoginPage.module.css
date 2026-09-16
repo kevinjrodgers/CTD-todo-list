@@ -1,0 +1,54 @@
+.loginMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 70px);
+}
+
+.loginMain h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.loginForm {
+  width: 80%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px;
+  background-color: teal;
+  border: solid black 2px;
+  border-radius: 5px;
+}
+
+.loginForm > button {
+  margin-top: 20px;
+  width: 150px;
+  margin: 0 auto;
+}
+
+.loginFormDiv {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0; 
+}
+
+.loginFormDiv > label {
+  color: white;
+  background-color: teal;
+}
+
+.loginFormDiv > input {
+  border-radius: 0;
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 480px) {
+  .loginForm {
+    width: 400px;
+  }
+}
+
+

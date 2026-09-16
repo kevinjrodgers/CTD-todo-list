@@ -27,7 +27,7 @@ function Logon() {
       <form onSubmit={(e) => handleSubmit(e)}>
       
       <label htmlFor='email'>Email</label>
-      <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
+      <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
 
       <label htmlFor='password'>Password</label>
       <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)}required/>

@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: #222222;
+  
+}
+
+
+body {
+  background-color: #f0f0f0;
+  background-image: url('../src/assets/coolbackgrounds-io-fractalize.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+button {
+  padding: 5px 15px;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+  background-color: #f0f0f0;
+}
+
+button:hover {
+  filter: saturate(200%);
+}
+
+.confirm-button {
+  background-color: green;
+}
+
+.warning-button {
+  background-color: red;
+}
+
+input {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/ProfilePage.module.css';
 
 function ProfilePage() {
   const { email, token } = useAuth();
@@ -31,7 +32,6 @@ function ProfilePage() {
         }
         const params = new URLSearchParams(paramsObject);
         const response = await fetch(`/api/tasks?${params}`, options);
-        console.log(response);
         if(response.status === 401) {
           throw new Error('Unauthorized');
         }
@@ -39,7 +39,6 @@ function ProfilePage() {
           throw new Error('Failed to fetch todos');
         }
         const todos = await response.json();
-        console.log(todos);
         const total = todos.tasks.length;
         const completed = todos.tasks.filter((todo) => todo.isCompleted).length;
         const active = total - completed;
@@ -54,29 +53,30 @@ function ProfilePage() {
   }, [token]);
 
   return (
-    <main>
+    <main className={styles.profileMain}>
       <h1>Hello, {email}. </h1>
       {error ? <p>{error}</p> : <></>}
       {isLoading ? <p>Loading profile and statistics...</p> : 
         (
-          <div>
+          <div className={styles.profileContent}>
             <h3>Account Status: Active</h3>
-            <h3>Statistics</h3>
-            <div>
-              <h5>Total Todos</h5>
-              <p>{todoStats.total}</p>
-            </div>
-            <div>
-              <h5>Completed Todos</h5>
-              <p>{todoStats.completed}</p>
-            </div>
-            <div>
-              <h5>Active Todos</h5>
-              <p>{todoStats.active}</p>
-            </div>
-            <div>
-              <h5>Todo Completion Percentage</h5>
-              {todoStats.total === 0 ? <p>0%</p> : <p>{Math.round((todoStats.completed / todoStats.total) * 100)}%</p>}
+            <div className={styles.mainStatsDiv}>
+              <div className={styles.statsDiv}>
+                <h5>Total Todos</h5>
+                <p>{todoStats.total}</p>
+              </div>
+              <div className={styles.statsDiv}>
+                <h5>Completed Todos</h5>
+                <p>{todoStats.completed}</p>
+              </div>
+              <div className={styles.statsDiv}>
+                <h5>Active Todos</h5>
+                <p>{todoStats.active}</p>
+              </div>
+              <div className={styles.statsDiv}>
+                <h5>Todo Completion Percentage</h5>
+                {todoStats.total === 0 ? <p>0%</p> : <p>{Math.round((todoStats.completed / todoStats.total) * 100)}%</p>}
+              </div>
             </div>
         </div>
         )

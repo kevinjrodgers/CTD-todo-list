@@ -1,0 +1,13 @@
+.todoListItemDeleteButton {
+  background-color: #ff2c2c;
+  color: white;
+}
+
+.todoListItemUpdateButton {
+  background-color: forestgreen;
+  color: white;
+}
+
+.checkBox {
+  margin-right: 5px;
+}

@@ -22,7 +22,7 @@ function Navigation() {
 
   return (
     <nav>
-      <ul style={{ listStyle: 'none', display: 'flex', gap: '1rem', padding: 0 }}>
+      <ul>
         <li><NavLink style={navLinkStyle} to='/about'>About</NavLink></li>
         {isAuthenticated ? 
           <>

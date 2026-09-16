@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/LoginPage.module.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -38,21 +39,21 @@ function LoginPage() {
   }
 
   return (
-    <>
-      {authError ? <p>{authError}</p> : <></>}
-      <form onSubmit={(e) => handleSubmit(e)}>
-      
-      <label htmlFor='email'>Email</label>
-      <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
-
-      <label htmlFor='password'>Password</label>
-      <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)}required/>
-      
-      <button type='submit' disabled={isLoggingOn}>
-        {isLoggingOn ? 'Logging in...' : 'Log On'}
-      </button>
-    </form>
-    </>
+    <main className={styles.loginMain}>
+      <h2>Login</h2>
+      <form className={styles.loginForm} onSubmit={(e) => handleSubmit(e)}>
+        {authError ? <p>{authError}</p> : <></>}
+        <div className={styles.loginFormDiv}>
+          <label htmlFor='email'>Email</label>
+          <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
+          <label htmlFor='password'>Password</label>
+          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)}required/>
+        </div>
+        <button type='submit' disabled={isLoggingOn}>
+          {isLoggingOn ? 'Logging in...' : 'Log On'}
+        </button>
+      </form>
+    </main>
   );
 }
 

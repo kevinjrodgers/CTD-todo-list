@@ -1,0 +1,57 @@
+.aboutMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.aboutMain h1 {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.aboutFeatureDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.aboutFeature {
+  background-color: #f0f0f0;
+  padding: 30px 20px;
+  max-width: 400px;
+}
+
+.aboutFeature h3 {
+  text-align: center;
+  margin: 10px 0;
+  text-decoration: underline;
+}
+
+.aboutList {
+  list-style-type: disc;
+}
+
+@media screen and (min-width: 480px) {
+  .aboutFeature {
+    border-radius: 5px;
+  }
+  .aboutMain {
+    padding-bottom: 50px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .aboutFeatureDiv {
+    flex-direction: row;
+  }
+
+  .aboutMain {
+    height: calc(100vh - 110px);
+  }
+
+  .aboutFeature {
+    min-width: 340px;
+    height: 200px;
+  }
+}

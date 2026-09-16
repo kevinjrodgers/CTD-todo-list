@@ -1,4 +1,6 @@
 
+import { MAX_TODO_LENGTH } from "../constants/config";
+
 function TextInputWithLabel({
   elementId,
   labelText,
@@ -15,6 +17,7 @@ function TextInputWithLabel({
         ref={ref}
         value={value}
         onChange={onChange}
+        maxLength={MAX_TODO_LENGTH}
       />
     </>
   );

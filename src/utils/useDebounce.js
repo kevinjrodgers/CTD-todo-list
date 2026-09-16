@@ -1,3 +1,5 @@
+// Sets delay to help reduce API spamming
+
 import { useState, useEffect } from 'react';
 
 function useDebounce(value, delay) {
