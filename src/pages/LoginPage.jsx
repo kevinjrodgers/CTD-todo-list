@@ -3,7 +3,8 @@ import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/LoginPage.module.css';
 import { MAX_TODO_LENGTH } from '../constants/config.js';
-//import indexStyles from '../index.css';
+import { z } from 'zod';
+import DOMPurify from 'dompurify';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ function LoginPage() {
   const [authError, setAuthError] = useState('');
   const [isLoggingOn, setIsLoggingOn] = useState(false); // Shows loading state during login
   const { login, isAuthenticated } = useAuth();
+  const [userInputErrors, setUserInputErrors] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +32,9 @@ function LoginPage() {
     event.preventDefault();
     setAuthError('');
     setIsLoggingOn(true);
+    // Validate and sanitize inputs
+    emailSanitizer(email);
+    passwordSanitizer(password);
     const result = await login(email, password);
     if(result.success) {
       setIsLoggingOn(false);
@@ -40,11 +45,38 @@ function LoginPage() {
     setIsLoggingOn(false);
   }
 
+  function emailSanitizer(userEmailInput) {
+    // email() is a default Zod function that uses regex to validate input
+    // Zod returns a deep clone of the input
+    try {
+      const loginSchema = z.email();
+      const validatedEmailInput = loginSchema.parse(userEmailInput);
+      // Use DOMPurify to sanitize valid input
+      const sanitizedEmail = DOMPurify.sanitize(validatedEmailInput);
+      setEmail(sanitizedEmail);
+    } catch(error) {
+      if(error.errors) {
+        console.log(error);
+        const inputFieldErrors = {};
+        error.errors.forEach((err) => {
+          inputFieldErrors[err.path[0]] = err.message;
+        });
+        setUserInputErrors(inputFieldErrors);
+      }
+    }
+  }
+
+  function passwordSanitizer(userPasswordInput) {
+    const cleanUserPasswordInput = DOMPurify.sanitize(userPasswordInput);
+    return cleanUserPasswordInput;
+  }
+
   return (
     <main className={styles.loginMain}>
       <h2>Login</h2>
       <form className={styles.loginForm} onSubmit={(e) => handleSubmit(e)}>
         {authError ? <p className='errorText'>{authError}</p> : <></>}
+        {userInputErrors ? <p>{userInputErrors}</p> : <></>}
         <div className={styles.loginFormDiv}>
           <label htmlFor='email'>Email</label>
           <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
