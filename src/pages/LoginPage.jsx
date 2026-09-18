@@ -47,7 +47,7 @@ function LoginPage() {
         {authError ? <p className='errorText'>{authError}</p> : <></>}
         <div className={styles.loginFormDiv}>
           <label htmlFor='email'>Email</label>
-          <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
+          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
           <label htmlFor='password'>Password</label>
           <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
         </div>
