@@ -38,10 +38,6 @@ A simple, online todo tracking application that allows users to add, update, and
 <img width="365" height="966" alt="image" src="https://github.com/user-attachments/assets/25c58f3a-ebd5-4cca-b855-973abcd0a404" />
 <img width="365" height="876" alt="image" src="https://github.com/user-attachments/assets/3244fcd4-4d21-478c-97e4-9b6fa168a060" />
 
-
-
-
-
 ## Getting Started
 In order to install the application, have Node installed and updated.
 
@@ -62,7 +58,6 @@ Run the application in dev/StrictMode
 Creates a production ready build of the application
 - npm run preview
 Creates a preview of the production build
-  
 
 ## Design Decisions
 I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization.
@@ -78,6 +73,7 @@ I wanted to make a simple, responsive, and intuitive Todo list application that 
 Background: https://coolbackgrounds.io/
 
 ## License Information
+This application utilizes the MIT License:
 
 The MIT License (MIT)
 

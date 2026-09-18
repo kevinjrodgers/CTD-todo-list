@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/LoginPage.module.css';
-import MAX_TODO_LENGTH from '../constants/config.js';
+import { MAX_TODO_LENGTH } from '../constants/config.js';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
