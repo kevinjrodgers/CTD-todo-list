@@ -55,7 +55,7 @@ function ProfilePage() {
   return (
     <main className={styles.profileMain}>
       <h1>Hello, {email}. </h1>
-      {error ? <p>{error}</p> : <></>}
+      {error ? <p className='errorText'>{error}</p> : <></>}
       {isLoading ? <p>Loading profile and statistics...</p> : 
         (
           <div className={styles.profileContent}>

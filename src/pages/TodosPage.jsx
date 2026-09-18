@@ -293,7 +293,7 @@ function TodosPage() {
     <main className={styles.todosPageMain}>
       {error ? 
       <section className={styles.errorSection}>
-          <p>{error}</p> 
+          <p className='errorText'>{error}</p> 
           <button 
             onClick={() =>
               dispatch({
@@ -307,7 +307,7 @@ function TodosPage() {
       : null}
       {filterError ? 
         <section className={styles.filterErrorSection}>
-          <p>{filterError}</p>
+          <p className='errorText'>{filterError}</p>
           <button 
             type='button'
             onClick={ () =>

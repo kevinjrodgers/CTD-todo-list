@@ -19,10 +19,17 @@ button {
   border-radius: 5px;
   transition-duration: 0.3s;
   background-color: #f0f0f0;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+select, option {
+  cursor: pointer;
 }
 
 button:hover {
   filter: saturate(200%);
+  opacity: 1;
 }
 
 .confirm-button {
@@ -36,6 +43,11 @@ button:hover {
 input {
   padding: 5px;
   border-radius: 5px;
+}
+
+.errorText {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/LoginPage.module.css';
 import { MAX_TODO_LENGTH } from '../constants/config.js';
+//import indexStyles from '../index.css';
 
 function LoginPage() {
   const [email, setEmail] = useState('');
@@ -43,7 +44,7 @@ function LoginPage() {
     <main className={styles.loginMain}>
       <h2>Login</h2>
       <form className={styles.loginForm} onSubmit={(e) => handleSubmit(e)}>
-        {authError ? <p>{authError}</p> : <></>}
+        {authError ? <p className='errorText'>{authError}</p> : <></>}
         <div className={styles.loginFormDiv}>
           <label htmlFor='email'>Email</label>
           <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
