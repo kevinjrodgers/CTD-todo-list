@@ -43,19 +43,34 @@ In order to install the application, have Node installed and updated.
 2. Go to repo webpage
 3. Copy repo link
 4. Open CMD or terminal
-5. Clone the repo using git clone
+5. Clone the repo:
+```bash
+git clone https://github.com/kevinjrodgers/CTD-todo-list.git
+```
 6. Navigate to the location where you cloned this repo
-7. In the CLI or your preferred code editor, run "npm install" to install dependencies
-8. Next, run "npm run dev" to start up a local server
+7. In the CLI or your preferred code editor, install dependencies:
+```bash
+npm install
+```
+8. Start up a local server
+```bash
+npm run dev
+```
 9. Navigate to the respective localhost address that was generated in the CLI to see the application
 
 ## Available Scripts
-- npm run dev
-Run the application in dev/StrictMode
-- npm run build
-Creates a production ready build of the application
-- npm run preview
+Run the application in dev/StrictMode mode:
+```bash
+npm run dev
+```
+Creates a production ready build of the application:
+```bash
+npm run build
+```
 Creates a preview of the production build
+```bash
+npm run preview
+```
 
 ## Design Decisions
 I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization.
