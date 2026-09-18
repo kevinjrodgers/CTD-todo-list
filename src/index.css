@@ -32,6 +32,10 @@ button:hover {
   opacity: 1;
 }
 
+button:disabled {
+  opacity: 0.5;
+}
+
 .confirm-button {
   background-color: green;
 }
@@ -45,7 +49,21 @@ input {
   border-radius: 5px;
 }
 
+input:focus {
+  outline: solid yellowgreen 2px;
+}
+
+input[type="checkbox"] {
+  accent-color: yellowgreen;
+  outline: none;
+}
+
 .errorText {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.loadingText {
   font-size: 1.2rem;
   font-weight: bold;
 }

@@ -56,7 +56,7 @@ function ProfilePage() {
     <main className={styles.profileMain}>
       <h1>Hello, {email}. </h1>
       {error ? <p className='errorText'>{error}</p> : <></>}
-      {isLoading ? <p>Loading profile and statistics...</p> : 
+      {isLoading ? <p className='loadingText'>Loading profile and statistics...</p> : 
         (
           <div className={styles.profileContent}>
             <h3>Account Status: Active</h3>

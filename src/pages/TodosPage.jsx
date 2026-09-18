@@ -330,7 +330,7 @@ function TodosPage() {
           </button>
         </section> 
         : <></>}
-      {isTodoListLoading ? <p>Loading...</p> : null}
+      {isTodoListLoading ? <p className='loadingText'>Loading...</p> : null}
       <section className={styles.sortByAndStatusFilterSection}>
         <SortBy 
           sortBy={sortBy}
