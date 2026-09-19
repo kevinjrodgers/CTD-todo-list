@@ -36,7 +36,7 @@ function TodoForm({ onAddTodo }) {
           elementId='todoTitle'
           labelText='Create a Todo'
         />
-        <button type='submit' /*disabled={!isValidTodoTitle(workingTodoTitle).isValid}*/>
+        <button type='submit'>
           Add Todo
         </button>
       </form>

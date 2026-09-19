@@ -2,10 +2,6 @@
 import { z } from 'zod';
 import DOMPurify from 'dompurify';
 import { MAX_TODO_LENGTH } from '../constants/config';
-/*export function isValidTodoTitle(title) {
-    return title.trim() !== '';
-}
-    */
 
 const todoSchema = z.string()
   .min(3, 'Todo must be at least 3 characters long')

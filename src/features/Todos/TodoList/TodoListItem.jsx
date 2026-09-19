@@ -49,7 +49,7 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
         <>
           <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)} elementId={`input${todo.id}`} labelText={''}/>
           <button type='button' onClick={handleCancel}>Cancel</button>
-          <button className={styles.todoListItemUpdateButton} type='button' onClick={handleUpdate} /*disabled={!isValidTodoTitle(workingTitle)}*/>Update</button>
+          <button className={styles.todoListItemUpdateButton} type='button' onClick={handleUpdate}>Update</button>
           <button className={styles.todoListItemDeleteButton} type='button' onClick={handleDelete}>Delete</button>
         </>
        ) : (
