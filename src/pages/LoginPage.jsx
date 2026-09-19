@@ -33,10 +33,10 @@ function LoginPage() {
     setAuthError('');
     setIsLoggingOn(true);
     // Validate and sanitize inputs
-    const isValidEmail = emailSanitizer(email);
-    const isValidPassword = passwordSanitizer(password);
-    if(isValidEmail && isValidPassword) {
-      const result = await login(email, password);
+    const emailChecker = emailSanitizer(email);
+    const passwordChecker = passwordSanitizer(password);
+    if(emailChecker.isValid && passwordChecker.isValid) {
+      const result = await login(emailChecker.sanitizedEmail, passwordChecker.sanitizedPassword);
       if(result.success) {
       setIsLoggingOn(false);
       navigate(from, { replace: true });
@@ -57,11 +57,16 @@ function LoginPage() {
       const validatedEmailInput = emailSchema.parse(userEmailInput);
       // Use DOMPurify to sanitize valid input
       const sanitizedEmail = DOMPurify.sanitize(validatedEmailInput);
-      setEmail(sanitizedEmail);
-      return true;
+      //setEmail(sanitizedEmail);
+      return {
+        isValid: true,
+        sanitizedEmail: sanitizedEmail,
+      }
     } catch(error) {
       setUserInputErrors(previous => [...previous, error.issues[0].message]);
-      return false;
+      return {
+        isValid: false,
+      };
     }
   }
 
@@ -69,12 +74,16 @@ function LoginPage() {
     try {
       const passwordSchema = z.string().refine((value) => value.trim().length > 0, 'Password field cannot be empty');
       const validatedPasswordInput = passwordSchema.parse(userPasswordInput);
-      const cleanUserPasswordInput = DOMPurify.sanitize(validatedPasswordInput);
-      setPassword(cleanUserPasswordInput);
-      return true;
+      const sanitizedPassword = DOMPurify.sanitize(validatedPasswordInput);
+      return {
+        isValid: true,
+        sanitizedPassword: sanitizedPassword,
+      }
     } catch(error) {
       setUserInputErrors(previous => [...previous, error.issues[0].message]);
-      return false;
+      return {
+        isValid: false
+      };
     }
   }
 
