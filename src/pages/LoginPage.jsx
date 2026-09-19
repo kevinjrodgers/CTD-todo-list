@@ -91,7 +91,7 @@ function LoginPage() {
           <label htmlFor='email'>Email</label>
           <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
+          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} required/>
         </div>
         <button type='submit' disabled={isLoggingOn}>
           {isLoggingOn ? 'Logging in...' : 'Log On'}
