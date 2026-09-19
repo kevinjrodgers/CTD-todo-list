@@ -19,6 +19,7 @@ export function isValidTodoTitle(title) {
   } catch(error) {
     return {
       message: error.issues[0].message,
+      title: DOMPurify.sanitize(title),
       isValid: false,
     }
   }

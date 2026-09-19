@@ -23,7 +23,6 @@ function TodoForm({ onAddTodo }) {
     } catch(error) {
       setValidTodoTitleErrors(error.message);
     }
-
   };
 
 	return (

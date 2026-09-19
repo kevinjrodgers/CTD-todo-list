@@ -32,8 +32,10 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
       onUpdateTodo({ ...todo, title: workingTitle });
     } catch(error) {
       setUpdateTitleError(error.message);
+      setWorkingTitle(todo.title);
     }
     setIsEditing(false);
+    
   }
 
   function handleDelete(event) {
