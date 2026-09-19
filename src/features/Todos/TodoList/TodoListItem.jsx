@@ -2,6 +2,7 @@ import { useState } from 'react';
 import TextInputWithLabel from '../../../shared/TextInputWithLabel.jsx';
 import { isValidTodoTitle } from '../../../utils/todoValidation.js';
 import styles from '../../../styles/TodoListItem.module.css';
+import { MAX_TODO_LENGTH } from '../../../constants/config.js';
 
 function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
   const [isEditing, setIsEditing] = useState(false);
