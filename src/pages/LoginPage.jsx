@@ -30,18 +30,22 @@ function LoginPage() {
   // Handle login form submission
   async function handleSubmit(event) {
     event.preventDefault();
+    setUserInputErrors('');
     setAuthError('');
     setIsLoggingOn(true);
     // Validate and sanitize inputs
-    emailSanitizer(email);
-    passwordSanitizer(password);
-    const result = await login(email, password);
-    if(result.success) {
+    const isValidEmail = emailSanitizer(email);
+    const isValidPassword = passwordSanitizer(password);
+    if(isValidEmail && isValidPassword) {
+      const result = await login(email, password);
+      if(result.success) {
       setIsLoggingOn(false);
       navigate(from, { replace: true });
-    } else {
-      setAuthError(result.error);
+      } else {
+        setAuthError(result.error);
+      }
     }
+    console.log(userInputErrors);
     setIsLoggingOn(false);
   }
 
@@ -49,26 +53,31 @@ function LoginPage() {
     // email() is a default Zod function that uses regex to validate input
     // Zod returns a deep clone of the input
     try {
-      const loginSchema = z.email();
-      const validatedEmailInput = loginSchema.parse(userEmailInput);
+      const emailSchema = z.email({
+        message: 'Invalid email address'
+      });
+      const validatedEmailInput = emailSchema.parse(userEmailInput);
       // Use DOMPurify to sanitize valid input
       const sanitizedEmail = DOMPurify.sanitize(validatedEmailInput);
       setEmail(sanitizedEmail);
+      return true;
     } catch(error) {
-      if(error.errors) {
-        console.log(error);
-        const inputFieldErrors = {};
-        error.errors.forEach((err) => {
-          inputFieldErrors[err.path[0]] = err.message;
-        });
-        setUserInputErrors(inputFieldErrors);
-      }
+      setUserInputErrors(previous => [...previous, error.issues[0].message]);
+      return false;
     }
   }
 
   function passwordSanitizer(userPasswordInput) {
-    const cleanUserPasswordInput = DOMPurify.sanitize(userPasswordInput);
-    return cleanUserPasswordInput;
+    try {
+      const passwordSchema = z.string().refine((value) => value.trim().length > 0, 'Password field cannot be empty');
+      const validatedPasswordInput = passwordSchema.parse(userPasswordInput);
+      const cleanUserPasswordInput = DOMPurify.sanitize(validatedPasswordInput);
+      setPassword(cleanUserPasswordInput);
+      return true;
+    } catch(error) {
+      setUserInputErrors(previous => [...previous, error.issues[0].message]);
+      return false;
+    }
   }
 
   return (
@@ -76,12 +85,15 @@ function LoginPage() {
       <h2>Login</h2>
       <form className={styles.loginForm} onSubmit={(e) => handleSubmit(e)}>
         {authError ? <p className='errorText'>{authError}</p> : <></>}
-        {userInputErrors ? <p>{userInputErrors}</p> : <></>}
+        {userInputErrors.length > 0 ? 
+          userInputErrors.map((error) => {
+            return <p className='errorText'>* {error}</p>
+          }) : <></>}
         <div className={styles.loginFormDiv}>
           <label htmlFor='email'>Email</label>
-          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
+          <input type='text' id='email' value={email} onChange={(e) => setEmail(e.target.value)} required/>
           <label htmlFor='password'>Password</label>
-          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} maxLength={MAX_TODO_LENGTH} required/>
+          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} maxLength={MAX_TODO_LENGTH}/>
         </div>
         <button type='submit' disabled={isLoggingOn}>
           {isLoggingOn ? 'Logging in...' : 'Log On'}
