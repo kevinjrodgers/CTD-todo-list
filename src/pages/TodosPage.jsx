@@ -105,7 +105,7 @@ function TodosPage() {
         id: Date.now(),
         title: todoTitle,
         isCompleted: false
-      };
+    };
     dispatch({
       type: TODO_ACTIONS.ADD_TODO_START,
       payload: {

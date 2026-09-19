@@ -63,6 +63,10 @@ input[type="checkbox"] {
   font-weight: bold;
 }
 
+.errorTextRed {
+  color: red;
+}
+
 .loadingText {
   font-size: 1.2rem;
   font-weight: bold;

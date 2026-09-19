@@ -29,7 +29,7 @@ function LoginPage() {
   // Handle login form submission
   async function handleSubmit(event) {
     event.preventDefault();
-    setUserInputErrors('');
+    setUserInputErrors([]);
     setAuthError('');
     setIsLoggingOn(true);
     // Validate and sanitize inputs
