@@ -18,7 +18,6 @@ function SortBy({ sortBy, sortDirection, onSortByChange, onSortDirectionChange }
       
     </>
   );
-  
 }
 
 export default SortBy;

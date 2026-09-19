@@ -2,10 +2,12 @@ import { useState } from 'react';
 import TextInputWithLabel from '../../../shared/TextInputWithLabel.jsx';
 import { isValidTodoTitle } from '../../../utils/todoValidation.js';
 import styles from '../../../styles/TodoListItem.module.css';
+import { MAX_TODO_LENGTH } from '../../../constants/config.js';
 
 function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
   const [isEditing, setIsEditing] = useState(false);
   const [workingTitle, setWorkingTitle] = useState(todo.title);
+  const [updateTitleError, setUpdateTitleError] = useState([]);
 
   function handleCancel() {
     setWorkingTitle(todo.title);
@@ -17,11 +19,20 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
   }
 
   function handleUpdate(event) {
+    setUpdateTitleError([]);
     if(isEditing === false) {
       return;
     }
     event.preventDefault();
-    onUpdateTodo({ ...todo, title: workingTitle });
+    try {
+      const isValidTitle = isValidTodoTitle(workingTitle);
+      if(isValidTitle.isValid !== true) {
+        throw new Error(isValidTitle.message);
+      }
+      onUpdateTodo({ ...todo, title: workingTitle });
+    } catch(error) {
+      setUpdateTitleError(error.message);
+    }
     setIsEditing(false);
   }
 
@@ -34,11 +45,12 @@ function TodoListItem({todo, onCompleteTodo, onUpdateTodo, onDeleteTodo}) {
 	return (
 		<li>
       <form onSubmit={handleUpdate}>
+        {updateTitleError.length > 0 ? <p className='errorText errorTextRed'>{updateTitleError}</p> : <></>}
         {isEditing ? (
         <>
           <TextInputWithLabel value={workingTitle} onChange={(event) => handleEdit(event)} elementId={`input${todo.id}`} labelText={''}/>
           <button type='button' onClick={handleCancel}>Cancel</button>
-          <button className={styles.todoListItemUpdateButton} type='button' onClick={handleUpdate} disabled={!isValidTodoTitle(workingTitle)}>Update</button>
+          <button className={styles.todoListItemUpdateButton} type='button' onClick={handleUpdate}>Update</button>
           <button className={styles.todoListItemDeleteButton} type='button' onClick={handleDelete}>Delete</button>
         </>
        ) : (
