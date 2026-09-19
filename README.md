@@ -73,7 +73,7 @@ npm run preview
 ```
 
 ## Design Decisions
-I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization.
+I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization. I used a blue and green fractal background to give it a tech-themed design with blue having a more math and tech inspiration and the green having a balance and calming inspiration. 
 
 ## Future Improvements
 - Persistent login
@@ -81,6 +81,8 @@ I wanted to make a simple, responsive, and intuitive Todo list application that 
 - Todo priority level filtering/searching 
 - Reorder todos
 - Light and dark themes
+
+I'd love to add in some nice QOL improvements to make todos have more impact and customizable as well as better UI/UX. Persistent login would be a big improvement so users don't need to log back in on every page refresh. 
 
 ## Assets Used
 Background: https://coolbackgrounds.io/
