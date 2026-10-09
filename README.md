@@ -1,6 +1,4 @@
-# Todo List
-
-## Live Demo Link
+# Todo Tracker: The Todo and Life Tracking Application
 
 ## Description
 A simple, online todo tracking application that allows users to add, update, and delete todo, as well as mark them as completed. A profile section shows user's stats such as how many todos there are, how many are completed, how many are incomplete, and the percentage of todos completed.
@@ -45,22 +43,37 @@ In order to install the application, have Node installed and updated.
 2. Go to repo webpage
 3. Copy repo link
 4. Open CMD or terminal
-5. Clone the repo using git clone
+5. Clone the repo:
+```bash
+git clone https://github.com/kevinjrodgers/CTD-todo-list.git
+```
 6. Navigate to the location where you cloned this repo
-7. In the CLI or your preferred code editor, run "npm install" to install dependencies
-8. Next, run "npm run dev" to start up a local server
+7. In the CLI or your preferred code editor, install dependencies:
+```bash
+npm install
+```
+8. Start up a local server
+```bash
+npm run dev
+```
 9. Navigate to the respective localhost address that was generated in the CLI to see the application
 
 ## Available Scripts
-- npm run dev
-Run the application in dev/StrictMode
-- npm run build
-Creates a production ready build of the application
-- npm run preview
+Run the application in dev/StrictMode mode:
+```bash
+npm run dev
+```
+Creates a production ready build of the application:
+```bash
+npm run build
+```
 Creates a preview of the production build
+```bash
+npm run preview
+```
 
 ## Design Decisions
-I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization.
+I wanted to make a simple, responsive, and intuitive Todo list application that can store todos online using an API while following industry recommended practices such as a state reducer and proper project organization. I used a blue and green fractal background to give it a tech-themed design with blue having a more math and tech inspiration and the green having a balance and calming inspiration. 
 
 ## Future Improvements
 - Persistent login
@@ -68,6 +81,8 @@ I wanted to make a simple, responsive, and intuitive Todo list application that 
 - Todo priority level filtering/searching 
 - Reorder todos
 - Light and dark themes
+
+I'd love to add in some nice QOL improvements to make todos have more impact and customizable as well as better UI/UX. Persistent login would be a big improvement so users don't need to log back in on every page refresh. 
 
 ## Assets Used
 Background: https://coolbackgrounds.io/

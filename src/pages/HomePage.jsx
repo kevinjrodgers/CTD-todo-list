@@ -16,7 +16,7 @@ function HomePage() {
 
   return (
     <div>
-      <p>Redirecting...</p>
+      <p className='loadingText'>Redirecting...</p>
     </div>
   );
 }
